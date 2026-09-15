@@ -1,0 +1,1018 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>QuickPlay</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #111827;
+
+    color: white;
+}
+
+header {
+
+    padding: 25px;
+
+    text-align: center;
+
+    background: #1f2937;
+
+    border-bottom:
+        1px solid #374151;
+}
+
+.logo {
+
+    font-size: 32px;
+
+    font-weight: bold;
+}
+
+.tagline {
+
+    margin-top: 8px;
+
+    color: #9ca3af;
+}
+
+.container {
+
+    width: min(
+        1000px,
+        94%
+    );
+
+    margin: auto;
+}
+
+.ad {
+
+    min-height: 90px;
+
+    margin:
+        20px 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #1f2937;
+
+    border:
+        1px dashed #4b5563;
+
+    color: #6b7280;
+}
+
+.screen {
+
+    display: none;
+}
+
+.screen.active {
+
+    display: block;
+}
+
+h1 {
+
+    text-align: center;
+
+    margin:
+        35px 0 25px;
+}
+
+.game-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 20px;
+}
+
+.game-card {
+
+    background: #1f2937;
+
+    border:
+        1px solid #374151;
+
+    border-radius: 15px;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        border-color 0.2s;
+}
+
+.game-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        #3b82f6;
+}
+
+.game-icon {
+
+    font-size: 55px;
+}
+
+.game-name {
+
+    margin-top: 15px;
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+.game-description {
+
+    margin-top: 8px;
+
+    color: #9ca3af;
+}
+
+.play-button {
+
+    margin-top: 20px;
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.play-button:hover {
+
+    background:
+        #1d4ed8;
+}
+
+.connection {
+
+    position: fixed;
+
+    top: 10px;
+
+    right: 10px;
+
+    padding:
+        7px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    background: #7f1d1d;
+}
+
+.connection.connected {
+
+    background:
+        #166534;
+}
+
+.queue-box {
+
+    max-width: 500px;
+
+    margin:
+        60px auto;
+
+    text-align: center;
+
+    background: #1f2937;
+
+    padding: 40px;
+
+    border-radius: 15px;
+}
+
+.spinner {
+
+    width: 50px;
+
+    height: 50px;
+
+    margin:
+        25px auto;
+
+    border:
+        5px solid #374151;
+
+    border-top-color:
+        #3b82f6;
+
+    border-radius: 50%;
+
+    animation:
+        spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+.cancel-button {
+
+    padding:
+        12px 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #374151;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.match-box {
+
+    max-width: 600px;
+
+    margin:
+        60px auto;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background: #1f2937;
+
+    border-radius: 15px;
+}
+
+.match-icon {
+
+    font-size: 70px;
+}
+
+.player-name {
+
+    margin:
+        15px 0;
+
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+.vs {
+
+    margin:
+        15px;
+
+    color: #9ca3af;
+
+    font-size: 20px;
+}
+
+.back-button {
+
+    margin-top: 30px;
+
+    padding:
+        12px 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #374151;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+
+    .game-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .logo {
+
+        font-size: 26px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div
+    id="connectionStatus"
+    class="connection"
+>
+    Connecting...
+</div>
+
+<header>
+
+    <div class="logo">
+        🎮 QuickPlay
+    </div>
+
+    <div class="tagline">
+        Play simple games against random players
+    </div>
+
+</header>
+
+<div class="container">
+
+    <div class="ad">
+        ADVERTISEMENT
+    </div>
+
+    <!-- ========================= -->
+    <!-- HOME -->
+    <!-- ========================= -->
+
+    <section
+        id="homeScreen"
+        class="screen active"
+    >
+
+        <h1>
+            Choose a Game
+        </h1>
+
+        <div class="game-grid">
+
+            <div
+                class="game-card"
+                onclick="findMatch('checkers')"
+            >
+
+                <div class="game-icon">
+                    ♟️
+                </div>
+
+                <div class="game-name">
+                    Checkers
+                </div>
+
+                <div class="game-description">
+                    Classic 1v1 checkers
+                </div>
+
+                <button class="play-button">
+                    FIND OPPONENT
+                </button>
+
+            </div>
+
+            <div
+                class="game-card"
+                onclick="findMatch('tictactoe')"
+            >
+
+                <div class="game-icon">
+                    ❌⭕
+                </div>
+
+                <div class="game-name">
+                    Tic-Tac-Toe
+                </div>
+
+                <div class="game-description">
+                    Quick classic battles
+                </div>
+
+                <button class="play-button">
+                    FIND OPPONENT
+                </button>
+
+            </div>
+
+            <div
+                class="game-card"
+                onclick="findMatch('battleship')"
+            >
+
+                <div class="game-icon">
+                    🚢
+                </div>
+
+                <div class="game-name">
+                    Battleship
+                </div>
+
+                <div class="game-description">
+                    Sink your opponent
+                </div>
+
+                <button class="play-button">
+                    FIND OPPONENT
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- SEARCH -->
+    <!-- ========================= -->
+
+    <section
+        id="queueScreen"
+        class="screen"
+    >
+
+        <div class="queue-box">
+
+            <h1 id="queueTitle">
+                Finding Opponent
+            </h1>
+
+            <div class="spinner"></div>
+
+            <p>
+                Searching for another player...
+            </p>
+
+            <button
+                class="cancel-button"
+                onclick="cancelSearch()"
+            >
+                CANCEL
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- MATCH -->
+    <!-- ========================= -->
+
+    <section
+        id="matchScreen"
+        class="screen"
+    >
+
+        <div class="match-box">
+
+            <div class="match-icon">
+                🎉
+            </div>
+
+            <h1>
+                MATCH FOUND!
+            </h1>
+
+            <div
+                id="yourName"
+                class="player-name"
+            >
+                You
+            </div>
+
+            <div class="vs">
+                VS
+            </div>
+
+            <div
+                id="opponentName"
+                class="player-name"
+            >
+                Opponent
+            </div>
+
+            <div id="matchGame">
+                Game
+            </div>
+
+            <button
+                class="back-button"
+                onclick="leaveGame()"
+            >
+                LEAVE GAME
+            </button>
+
+        </div>
+
+    </section>
+
+    <div class="ad">
+        ADVERTISEMENT
+    </div>
+
+</div>
+
+<script>
+
+/*
+========================================
+BACKEND URL
+========================================
+
+REPLACE THIS WITH YOUR REPLIT URL.
+
+Example:
+
+https://myproject.username.replit.app
+
+The code automatically changes
+https:// into wss://
+*/
+
+const BACKEND_URL =
+    "https://YOUR-REPLIT-URL.replit.app";
+
+
+let socket = null;
+
+let currentGame = null;
+
+let connected = false;
+
+
+/*
+========================================
+CONNECT
+========================================
+*/
+
+function connectToServer() {
+
+    const websocketURL =
+        BACKEND_URL
+            .replace(
+                "https://",
+                "wss://"
+            )
+            .replace(
+                "http://",
+                "ws://"
+            );
+
+    socket =
+        new WebSocket(
+            websocketURL
+        );
+
+
+    socket.onopen = () => {
+
+        connected = true;
+
+        updateConnectionStatus();
+
+        console.log(
+            "Connected to QuickPlay backend"
+        );
+    };
+
+
+    socket.onclose = () => {
+
+        connected = false;
+
+        updateConnectionStatus();
+
+        console.log(
+            "Disconnected from backend"
+        );
+
+    };
+
+
+    socket.onerror = error => {
+
+        console.error(
+            "WebSocket error:",
+            error
+        );
+
+    };
+
+
+    socket.onmessage =
+        event => {
+
+            const message =
+                JSON.parse(
+                    event.data
+                );
+
+            handleMessage(
+                message
+            );
+
+        };
+
+}
+
+
+/*
+========================================
+CONNECTION STATUS
+========================================
+*/
+
+function updateConnectionStatus() {
+
+    const element =
+        document.getElementById(
+            "connectionStatus"
+        );
+
+    if (connected) {
+
+        element.textContent =
+            "● Connected";
+
+        element.classList.add(
+            "connected"
+        );
+
+    } else {
+
+        element.textContent =
+            "● Disconnected";
+
+        element.classList.remove(
+            "connected"
+        );
+
+    }
+
+}
+
+
+/*
+========================================
+MESSAGES
+========================================
+*/
+
+function handleMessage(message) {
+
+    console.log(
+        "Server:",
+        message
+    );
+
+
+    if (
+        message.type ===
+        "connected"
+    ) {
+
+        document.getElementById(
+            "yourName"
+        ).textContent =
+            message.name;
+
+    }
+
+
+    if (
+        message.type ===
+        "searching"
+    ) {
+
+        showScreen(
+            "queueScreen"
+        );
+
+    }
+
+
+    if (
+        message.type ===
+        "match_found"
+    ) {
+
+        showMatch(
+            message
+        );
+
+    }
+
+
+    if (
+        message.type ===
+        "search_cancelled"
+    ) {
+
+        showScreen(
+            "homeScreen"
+        );
+
+    }
+
+
+    if (
+        message.type ===
+        "opponent_left"
+    ) {
+
+        alert(
+            "Your opponent left the game."
+        );
+
+        showScreen(
+            "homeScreen"
+        );
+
+    }
+
+}
+
+
+/*
+========================================
+FIND MATCH
+========================================
+*/
+
+function findMatch(game) {
+
+    if (!connected) {
+
+        alert(
+            "You are not connected to the game server yet."
+        );
+
+        return;
+
+    }
+
+
+    currentGame = game;
+
+
+    document.getElementById(
+        "queueTitle"
+    ).textContent =
+        "Finding " +
+        formatGameName(game) +
+        " Opponent";
+
+
+    showScreen(
+        "queueScreen"
+    );
+
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "find_match",
+
+            game:
+                game
+
+        })
+    );
+
+}
+
+
+/*
+========================================
+CANCEL SEARCH
+========================================
+*/
+
+function cancelSearch() {
+
+    if (socket) {
+
+        socket.send(
+            JSON.stringify({
+
+                type:
+                    "cancel_search"
+
+            })
+        );
+
+    }
+
+    currentGame = null;
+
+    showScreen(
+        "homeScreen"
+    );
+
+}
+
+
+/*
+========================================
+SHOW MATCH
+========================================
+*/
+
+function showMatch(message) {
+
+    document.getElementById(
+        "opponentName"
+    ).textContent =
+        message.opponent;
+
+
+    document.getElementById(
+        "matchGame"
+    ).textContent =
+        formatGameName(
+            message.game
+        );
+
+
+    showScreen(
+        "matchScreen"
+    );
+
+}
+
+
+/*
+========================================
+LEAVE GAME
+========================================
+*/
+
+function leaveGame() {
+
+    if (socket) {
+
+        socket.send(
+            JSON.stringify({
+
+                type:
+                    "leave_game"
+
+            })
+        );
+
+    }
+
+    currentGame = null;
+
+    showScreen(
+        "homeScreen"
+    );
+
+}
+
+
+/*
+========================================
+SCREEN SWITCHING
+========================================
+*/
+
+function showScreen(id) {
+
+    document
+        .querySelectorAll(
+            ".screen"
+        )
+        .forEach(
+            screen => {
+
+                screen.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(id)
+        .classList.add(
+            "active"
+        );
+
+}
+
+
+/*
+========================================
+GAME NAME
+========================================
+*/
+
+function formatGameName(game) {
+
+    if (
+        game ===
+        "tictactoe"
+    ) {
+
+        return "Tic-Tac-Toe";
+
+    }
+
+    if (
+        game ===
+        "checkers"
+    ) {
+
+        return "Checkers";
+
+    }
+
+    if (
+        game ===
+        "battleship"
+    ) {
+
+        return "Battleship";
+
+    }
+
+    return game;
+
+}
+
+
+/*
+========================================
+START
+========================================
+*/
+
+connectToServer();
+
+</script>
+
+</body>
+</html>
+```

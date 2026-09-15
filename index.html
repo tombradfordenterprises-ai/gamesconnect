@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
+```
 <meta charset="UTF-8">
 
 <meta
@@ -14,1281 +16,1862 @@
 
 <style>
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #111827;
-    color: white;
-}
-
-header {
-    padding: 25px;
-    text-align: center;
-    background: #1f2937;
-    border-bottom: 1px solid #374151;
-}
-
-.logo {
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.tagline {
-    margin-top: 8px;
-    color: #9ca3af;
-}
-
-.container {
-    width: min(1000px, 94%);
-    margin: auto;
-}
-
-.ad {
-    min-height: 90px;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1f2937;
-    border: 1px dashed #4b5563;
-    color: #6b7280;
-}
-
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
-}
-
-h1 {
-    text-align: center;
-    margin: 35px 0 25px;
-}
-
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.game-card {
-    background: #1f2937;
-    border: 1px solid #374151;
-    border-radius: 15px;
-    padding: 30px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.game-card:hover {
-    transform: translateY(-4px);
-    border-color: #3b82f6;
-}
-
-.game-icon {
-    font-size: 55px;
-}
-
-.game-name {
-    margin-top: 15px;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.game-description {
-    margin-top: 8px;
-    color: #9ca3af;
-}
-
-.play-button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.play-button:hover {
-    background: #1d4ed8;
-}
-
-.connection {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    background: #7f1d1d;
-    z-index: 100;
-}
-
-.connection.connected {
-    background: #166534;
-}
-
-.queue-box {
-    max-width: 500px;
-    margin: 60px auto;
-    text-align: center;
-    background: #1f2937;
-    padding: 40px;
-    border-radius: 15px;
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    margin: 25px auto;
-    border: 5px solid #374151;
-    border-top-color: #3b82f6;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.cancel-button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    background: #374151;
-    color: white;
-    cursor: pointer;
-}
-
-.match-box {
-    max-width: 600px;
-    margin: 60px auto;
-    padding: 40px;
-    text-align: center;
-    background: #1f2937;
-    border-radius: 15px;
-}
-
-.match-icon {
-    font-size: 70px;
-}
-
-.player-name {
-    margin: 15px 0;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.vs {
-    margin: 15px;
-    color: #9ca3af;
-    font-size: 20px;
-}
-
-/* ========================================
-   TIC-TAC-TOE
-======================================== */
-
-.tictactoe-box {
-    max-width: 500px;
-    margin: 30px auto 50px;
-    padding: 25px;
-    text-align: center;
-    background: #1f2937;
-    border-radius: 15px;
-}
-
-.tictactoe-info {
-    color: #d1d5db;
-    margin-bottom: 10px;
-}
-
-.symbol-display {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 15px 0;
-}
-
-.turn-display {
-    min-height: 24px;
-    color: #9ca3af;
-    margin-bottom: 20px;
-}
-
-.board {
-    width: min(90vw, 360px);
-    height: min(90vw, 360px);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-}
-
-.cell {
-    border: none;
-    border-radius: 10px;
-    background: #374151;
-    color: white;
-    font-size: clamp(45px, 15vw, 80px);
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s, transform 0.1s;
-}
-
-.cell:hover {
-    background: #4b5563;
-}
-
-.cell:active {
-    transform: scale(0.96);
-}
-
-.cell:disabled {
-    cursor: default;
-    opacity: 1;
-}
-
-.cell.winning {
-    background: #166534;
-}
-
-.game-result {
-    min-height: 40px;
-    margin-top: 20px;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.game-buttons {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.game-button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.game-button:hover {
-    background: #1d4ed8;
-}
-
-.game-button.secondary {
-    background: #374151;
-}
-
-.game-button:disabled {
-    opacity: 0.5;
-    cursor: default;
-}
-
-@media (max-width: 700px) {
-
-    .game-grid {
-        grid-template-columns: 1fr;
+    * {
+        box-sizing: border-box;
     }
 
-    .logo {
-        font-size: 26px;
+    body {
+
+        margin: 0;
+
+        min-height: 100vh;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background:
+            linear-gradient(
+                135deg,
+                #111827,
+                #1f2937
+            );
+
+        color: white;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
     }
 
-    .tictactoe-box {
-        padding: 18px;
+    .screen {
+
+        width: 100%;
+
+        max-width: 900px;
+
+        padding: 25px;
+
+        text-align: center;
+
     }
 
-}
+    .hidden {
+        display: none !important;
+    }
+
+    h1 {
+
+        font-size: 42px;
+
+        margin-bottom: 10px;
+
+    }
+
+    h2 {
+
+        margin-top: 10px;
+
+    }
+
+    p {
+        color: #cbd5e1;
+    }
+
+    /* =================================
+       HOME
+    ================================= */
+
+    .games {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+
+        gap: 20px;
+
+        margin-top: 30px;
+
+    }
+
+    .game-card {
+
+        background: #1e293b;
+
+        border:
+            1px solid
+            #334155;
+
+        border-radius: 18px;
+
+        padding: 30px 20px;
+
+        cursor: pointer;
+
+        transition:
+            transform .2s,
+            background .2s;
+
+    }
+
+    .game-card:hover {
+
+        transform:
+            translateY(-5px);
+
+        background:
+            #263449;
+
+    }
+
+    .game-icon {
+
+        font-size: 60px;
+
+        margin-bottom: 15px;
+
+    }
+
+    .game-card h2 {
+
+        margin: 0 0 8px;
+
+    }
+
+    .game-card p {
+
+        margin: 0;
+
+    }
+
+    /* =================================
+       BUTTONS
+    ================================= */
+
+    button {
+
+        border: none;
+
+        border-radius: 10px;
+
+        padding: 12px 20px;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+        background: #3b82f6;
+
+        color: white;
+
+        transition:
+            background .2s,
+            transform .1s;
+
+    }
+
+    button:hover {
+        background: #2563eb;
+    }
+
+    button:active {
+        transform: scale(.97);
+    }
+
+    .secondary {
+
+        background:
+            #475569;
+
+    }
+
+    .secondary:hover {
+
+        background:
+            #334155;
+
+    }
+
+    .danger {
+
+        background:
+            #dc2626;
+
+    }
+
+    .danger:hover {
+
+        background:
+            #b91c1c;
+
+    }
+
+    /* =================================
+       QUEUE
+    ================================= */
+
+    .queue-box {
+
+        background:
+            #1e293b;
+
+        border:
+            1px solid
+            #334155;
+
+        border-radius: 18px;
+
+        padding: 40px;
+
+        margin-top: 30px;
+
+    }
+
+    .spinner {
+
+        width: 50px;
+
+        height: 50px;
+
+        border:
+            5px solid
+            #334155;
+
+        border-top-color:
+            #3b82f6;
+
+        border-radius: 50%;
+
+        animation:
+            spin 1s linear infinite;
+
+        margin:
+            20px auto;
+
+    }
+
+    @keyframes spin {
+
+        to {
+            transform:
+                rotate(360deg);
+        }
+
+    }
+
+    /* =================================
+       GAME HEADER
+    ================================= */
+
+    .game-header {
+
+        display: flex;
+
+        justify-content:
+            space-between;
+
+        align-items: center;
+
+        gap: 15px;
+
+        margin-bottom: 20px;
+
+        flex-wrap: wrap;
+
+    }
+
+    .player-info {
+
+        background:
+            #1e293b;
+
+        padding:
+            12px 18px;
+
+        border-radius:
+            12px;
+
+        border:
+            1px solid
+            #334155;
+
+    }
+
+    .turn-indicator {
+
+        padding:
+            12px 20px;
+
+        border-radius:
+            12px;
+
+        background:
+            #334155;
+
+        font-weight:
+            bold;
+
+    }
+
+    /* =================================
+       TIC TAC TOE
+    ================================= */
+
+    .ttt-board {
+
+        width:
+            min(90vw, 420px);
+
+        height:
+            min(90vw, 420px);
+
+        margin:
+            25px auto;
+
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 8px;
+
+    }
+
+    .ttt-cell {
+
+        background:
+            #334155;
+
+        border:
+            2px solid
+            #475569;
+
+        border-radius:
+            12px;
+
+        font-size:
+            clamp(
+                40px,
+                12vw,
+                80px
+            );
+
+        font-weight:
+            bold;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        cursor:
+            pointer;
+
+    }
+
+    .ttt-cell:hover:not(:disabled) {
+
+        background:
+            #475569;
+
+    }
+
+    .ttt-cell:disabled {
+
+        cursor:
+            default;
+
+    }
+
+    /* =================================
+       CHECKERS
+    ================================= */
+
+    .checkers-wrapper {
+
+        width: 100%;
+
+        display:
+            flex;
+
+        justify-content:
+            center;
+
+    }
+
+    .checkers-board {
+
+        width:
+            min(
+                92vw,
+                560px
+            );
+
+        height:
+            min(
+                92vw,
+                560px
+            );
+
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(8, 1fr);
+
+        grid-template-rows:
+            repeat(8, 1fr);
+
+        border:
+            6px solid
+            #111827;
+
+        border-radius:
+            8px;
+
+        overflow:
+            hidden;
+
+        box-shadow:
+            0 15px 40px
+            rgba(
+                0,
+                0,
+                0,
+                .4
+            );
+
+    }
+
+    .checker-square {
+
+        border:
+            none;
+
+        border-radius:
+            0;
+
+        padding:
+            0;
+
+        margin:
+            0;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        position:
+            relative;
+
+        cursor:
+            pointer;
+
+    }
+
+    .checker-light {
+
+        background:
+            #e5d3b3;
+
+    }
+
+    .checker-dark {
+
+        background:
+            #7a4f32;
+
+    }
+
+    .checker-square:hover {
+
+        filter:
+            brightness(1.08);
+
+    }
+
+    .checker-piece {
+
+        width:
+            72%;
+
+        height:
+            72%;
+
+        border-radius:
+            50%;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        font-size:
+            clamp(
+                18px,
+                5vw,
+                32px
+            );
+
+        font-weight:
+            bold;
+
+        border:
+            3px solid
+            rgba(
+                0,
+                0,
+                0,
+                .35
+            );
+
+        box-shadow:
+            0 5px 8px
+            rgba(
+                0,
+                0,
+                0,
+                .35
+            );
+
+        pointer-events:
+            none;
+
+    }
+
+    .piece-red {
+
+        background:
+            #dc2626;
+
+    }
+
+    .piece-black {
+
+        background:
+            #111827;
+
+    }
+
+    .piece-king::after {
+
+        content:
+            "♛";
+
+        color:
+            #facc15;
+
+        text-shadow:
+            0 1px 2px
+            #000;
+
+    }
+
+    .selected-square {
+
+        box-shadow:
+            inset 0 0 0 5px
+            #22c55e;
+
+    }
+
+    .legal-square::after {
+
+        content:
+            "";
+
+        position:
+            absolute;
+
+        width:
+            24%;
+
+        height:
+            24%;
+
+        border-radius:
+            50%;
+
+        background:
+            rgba(
+                34,
+                197,
+                94,
+                .85
+            );
+
+    }
+
+    .capture-square::after {
+
+        background:
+            rgba(
+                250,
+                204,
+                21,
+                .95
+            );
+
+    }
+
+    .checkers-info {
+
+        margin:
+            15px auto;
+
+        max-width:
+            560px;
+
+        display:
+            flex;
+
+        justify-content:
+            space-between;
+
+        gap:
+            10px;
+
+        flex-wrap:
+            wrap;
+
+    }
+
+    .color-label {
+
+        padding:
+            10px 16px;
+
+        border-radius:
+            10px;
+
+        background:
+            #1e293b;
+
+        border:
+            1px solid
+            #334155;
+
+    }
+
+    /* =================================
+       GAME OVER
+    ================================= */
+
+    .result-box {
+
+        background:
+            #1e293b;
+
+        border:
+            1px solid
+            #334155;
+
+        border-radius:
+            18px;
+
+        padding:
+            25px;
+
+        margin:
+            20px auto;
+
+        max-width:
+            500px;
+
+    }
+
+    .result-title {
+
+        font-size:
+            32px;
+
+        font-weight:
+            bold;
+
+        margin-bottom:
+            15px;
+
+    }
+
+    .game-buttons {
+
+        display:
+            flex;
+
+        justify-content:
+            center;
+
+        gap:
+            10px;
+
+        flex-wrap:
+            wrap;
+
+        margin-top:
+            20px;
+
+    }
+
+    /* =================================
+       MOBILE
+    ================================= */
+
+    @media (
+        max-width: 600px
+    ) {
+
+        .screen {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        .queue-box {
+            padding: 25px 15px;
+        }
+
+        .game-header {
+            justify-content: center;
+        }
+
+        .player-info {
+            font-size: 14px;
+        }
+
+    }
 
 </style>
+```
 
 </head>
 
 <body>
 
-<!-- ========================================
-     CONNECTION STATUS
-======================================== -->
+```
+<!-- =================================
+     HOME SCREEN
+================================= -->
 
 <div
-    id="connectionStatus"
-    class="connection"
+    id="homeScreen"
+    class="screen"
 >
-    Connecting...
-</div>
 
+    <h1>QuickPlay</h1>
 
-<!-- ========================================
-     HEADER
-======================================== -->
+    <p>
+        Play games against random opponents.
+    </p>
 
-<header>
+    <div class="games">
 
-    <div class="logo">
-        🎮 QuickPlay
-    </div>
+        <div
+            class="game-card"
+            onclick="findMatch('checkers')"
+        >
 
-    <div class="tagline">
-        Play simple games against random players
-    </div>
-
-</header>
-
-
-<div class="container">
-
-    <!-- ========================================
-         TOP AD
-    ======================================== -->
-
-    <div class="ad">
-        ADVERTISEMENT
-    </div>
-
-
-    <!-- ========================================
-         HOME
-    ======================================== -->
-
-    <section
-        id="homeScreen"
-        class="screen active"
-    >
-
-        <h1>
-            Choose a Game
-        </h1>
-
-        <div class="game-grid">
-
-            <!-- CHECKERS -->
-
-            <div
-                class="game-card"
-                onclick="findMatch('checkers')"
-            >
-
-                <div class="game-icon">
-                    ♟️
-                </div>
-
-                <div class="game-name">
-                    Checkers
-                </div>
-
-                <div class="game-description">
-                    Classic 1v1 checkers
-                </div>
-
-                <button
-                    class="play-button"
-                >
-                    FIND OPPONENT
-                </button>
-
+            <div class="game-icon">
+                ♟️
             </div>
 
+            <h2>Checkers</h2>
 
-            <!-- TIC-TAC-TOE -->
-
-            <div
-                class="game-card"
-                onclick="findMatch('tictactoe')"
-            >
-
-                <div class="game-icon">
-                    ❌⭕
-                </div>
-
-                <div class="game-name">
-                    Tic-Tac-Toe
-                </div>
-
-                <div class="game-description">
-                    Quick classic battles
-                </div>
-
-                <button
-                    class="play-button"
-                >
-                    FIND OPPONENT
-                </button>
-
-            </div>
-
-
-            <!-- BATTLESHIP -->
-
-            <div
-                class="game-card"
-                onclick="findMatch('battleship')"
-            >
-
-                <div class="game-icon">
-                    🚢
-                </div>
-
-                <div class="game-name">
-                    Battleship
-                </div>
-
-                <div class="game-description">
-                    Sink your opponent
-                </div>
-
-                <button
-                    class="play-button"
-                >
-                    FIND OPPONENT
-                </button>
-
-            </div>
+            <p>
+                Classic 1v1 checkers
+            </p>
 
         </div>
 
-    </section>
+        <div
+            class="game-card"
+            onclick="findMatch('tictactoe')"
+        >
 
+            <div class="game-icon">
+                ❌⭕
+            </div>
 
-    <!-- ========================================
-         SEARCH SCREEN
-    ======================================== -->
-
-    <section
-        id="queueScreen"
-        class="screen"
-    >
-
-        <div class="queue-box">
-
-            <h1 id="queueTitle">
-                Finding Opponent
-            </h1>
-
-            <div class="spinner"></div>
+            <h2>Tic-Tac-Toe</h2>
 
             <p>
-                Searching for another player...
+                Quick 1v1 matches
             </p>
 
+        </div>
+
+        <div
+            class="game-card"
+            onclick="findMatch('battleship')"
+        >
+
+            <div class="game-icon">
+                🚢
+            </div>
+
+            <h2>Battleship</h2>
+
+            <p>
+                Coming soon
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     QUEUE SCREEN
+================================= -->
+
+<div
+    id="queueScreen"
+    class="screen hidden"
+>
+
+    <h1>Finding Opponent</h1>
+
+    <div class="queue-box">
+
+        <div
+            id="queueGame"
+        >
+            Searching...
+        </div>
+
+        <div class="spinner"></div>
+
+        <p>
+            Looking for another player...
+        </p>
+
+        <button
+            class="danger"
+            onclick="cancelSearch()"
+        >
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     TIC TAC TOE SCREEN
+================================= -->
+
+<div
+    id="tictactoeScreen"
+    class="screen hidden"
+>
+
+    <div class="game-header">
+
+        <div
+            class="player-info"
+            id="tttYou"
+        >
+            You
+        </div>
+
+        <div
+            class="turn-indicator"
+            id="tttTurn"
+        >
+            Waiting...
+        </div>
+
+        <div
+            class="player-info"
+            id="tttOpponent"
+        >
+            Opponent
+        </div>
+
+    </div>
+
+    <h2>Tic-Tac-Toe</h2>
+
+    <div
+        id="tttBoard"
+        class="ttt-board"
+    ></div>
+
+    <div
+        id="tttResult"
+        class="result-box hidden"
+    >
+
+        <div
+            id="tttResultTitle"
+            class="result-title"
+        ></div>
+
+        <div
+            id="tttResultMessage"
+        ></div>
+
+        <div class="game-buttons">
+
             <button
-                class="cancel-button"
-                onclick="cancelSearch()"
+                onclick="requestTicTacToeRematch()"
             >
-                CANCEL
+                Rematch
+            </button>
+
+            <button
+                class="secondary"
+                onclick="leaveGame()"
+            >
+                Leave Game
             </button>
 
         </div>
 
-    </section>
+    </div>
 
-
-    <!-- ========================================
-         MATCH FOUND SCREEN
-    ======================================== -->
-
-    <section
-        id="matchScreen"
-        class="screen"
+    <div
+        class="game-buttons"
+        id="tttLeaveButton"
     >
 
-        <div class="match-box">
+        <button
+            class="danger"
+            onclick="leaveGame()"
+        >
+            Leave Game
+        </button>
 
-            <div class="match-icon">
-                🎉
-            </div>
-
-            <h1>
-                MATCH FOUND!
-            </h1>
-
-            <div
-                id="yourName"
-                class="player-name"
-            >
-                You
-            </div>
-
-            <div class="vs">
-                VS
-            </div>
-
-            <div
-                id="opponentName"
-                class="player-name"
-            >
-                Opponent
-            </div>
-
-            <div id="matchGame">
-                Game
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ========================================
-         TIC-TAC-TOE SCREEN
-    ======================================== -->
-
-    <section
-        id="tictactoeScreen"
-        class="screen"
-    >
-
-        <div class="tictactoe-box">
-
-            <h1>
-                ❌ Tic-Tac-Toe ⭕
-            </h1>
-
-            <div
-                id="ticOpponent"
-                class="tictactoe-info"
-            >
-                Opponent: —
-            </div>
-
-            <div
-                id="symbolDisplay"
-                class="symbol-display"
-            >
-                You are: —
-            </div>
-
-            <div
-                id="turnDisplay"
-                class="turn-display"
-            >
-                Waiting for game...
-            </div>
-
-
-            <!-- BOARD -->
-
-            <div
-                id="ticBoard"
-                class="board"
-            >
-
-                <button
-                    class="cell"
-                    onclick="makeMove(0)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(1)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(2)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(3)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(4)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(5)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(6)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(7)"
-                ></button>
-
-                <button
-                    class="cell"
-                    onclick="makeMove(8)"
-                ></button>
-
-            </div>
-
-
-            <!-- GAME RESULT -->
-
-            <div
-                id="gameResult"
-                class="game-result"
-            ></div>
-
-
-            <!-- GAME BUTTONS -->
-
-            <div class="game-buttons">
-
-                <button
-                    id="rematchButton"
-                    class="game-button"
-                    onclick="requestRematch()"
-                    style="display:none;"
-                >
-                    PLAY AGAIN
-                </button>
-
-                <button
-                    class="game-button secondary"
-                    onclick="leaveGame()"
-                >
-                    LEAVE GAME
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ========================================
-         BOTTOM AD
-    ======================================== -->
-
-    <div class="ad">
-        ADVERTISEMENT
     </div>
 
 </div>
 
 
+<!-- =================================
+     CHECKERS SCREEN
+================================= -->
+
+<div
+    id="checkersScreen"
+    class="screen hidden"
+>
+
+    <div class="game-header">
+
+        <div
+            class="player-info"
+            id="checkersYou"
+        >
+            You
+        </div>
+
+        <div
+            class="turn-indicator"
+            id="checkersTurn"
+        >
+            Waiting...
+        </div>
+
+        <div
+            class="player-info"
+            id="checkersOpponent"
+        >
+            Opponent
+        </div>
+
+    </div>
+
+    <h2>Checkers</h2>
+
+    <div
+        class="checkers-info"
+    >
+
+        <div
+            class="color-label"
+            id="checkersColor"
+        >
+            Your pieces
+        </div>
+
+        <div
+            class="color-label"
+        >
+            Green = move
+        </div>
+
+        <div
+            class="color-label"
+        >
+            Gold = capture
+        </div>
+
+    </div>
+
+    <div
+        class="checkers-wrapper"
+    >
+
+        <div
+            id="checkersBoard"
+            class="checkers-board"
+        ></div>
+
+    </div>
+
+    <p
+        id="checkersMessage"
+    >
+        Select one of your pieces.
+    </p>
+
+    <div
+        id="checkersResult"
+        class="result-box hidden"
+    >
+
+        <div
+            id="checkersResultTitle"
+            class="result-title"
+        ></div>
+
+        <div
+            id="checkersResultMessage"
+        ></div>
+
+        <div class="game-buttons">
+
+            <button
+                onclick="requestCheckersRematch()"
+            >
+                Rematch
+            </button>
+
+            <button
+                class="secondary"
+                onclick="leaveGame()"
+            >
+                Leave Game
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        class="game-buttons"
+        id="checkersLeaveButton"
+    >
+
+        <button
+            class="danger"
+            onclick="leaveGame()"
+        >
+            Leave Game
+        </button>
+
+    </div>
+
+</div>
+```
+
 <script>
 
-/*
-========================================
-BACKEND URL
-========================================
-*/
+/* ========================================
+   BACKEND
+======================================== */
 
 const BACKEND_URL =
     "https://gamesconnect-1.onrender.com";
 
+let socket;
 
-/*
-========================================
-GLOBAL VARIABLES
-========================================
-*/
 
-let socket = null;
+/* ========================================
+   GLOBAL GAME STATE
+======================================== */
 
 let currentGame = null;
 
-let connected = false;
-
-let mySymbol = null;
-
 let myPlayerIndex = null;
+
+let opponentName = "";
 
 let currentTurn = null;
 
 let gameFinished = false;
 
 
-/*
-========================================
-CONNECT TO SERVER
-========================================
-*/
+/* ========================================
+   TIC TAC TOE STATE
+======================================== */
 
-function connectToServer() {
+let tttBoard = [];
 
-    const websocketURL =
-        BACKEND_URL
-            .replace(
-                "https://",
-                "wss://"
-            )
-            .replace(
-                "http://",
-                "ws://"
-            );
+let mySymbol = null;
 
-    console.log(
-        "Connecting to:",
-        websocketURL
-    );
 
-    socket =
-        new WebSocket(
-            websocketURL
+/* ========================================
+   CHECKERS STATE
+======================================== */
+
+let checkersBoard = [];
+
+let checkersSelected = null;
+
+let checkersLegalMoves = [];
+
+let checkersMustContinue = null;
+
+
+/* ========================================
+   CONNECT
+======================================== */
+
+function connectSocket() {
+
+    const protocol =
+        window.location.protocol === "https:"
+            ? "wss:"
+            : "ws:";
+
+    const url =
+        protocol +
+        "//" +
+        BACKEND_URL.replace(
+            /^https?:\/\//,
+            ""
         );
 
+    socket =
+        new WebSocket(url);
 
     socket.onopen = () => {
 
-        connected = true;
-
-        updateConnectionStatus();
-
         console.log(
-            "Connected to QuickPlay backend"
+            "Connected to QuickPlay"
         );
 
     };
 
+    socket.onmessage = event => {
 
-    socket.onclose = event => {
+        let message;
 
-        connected = false;
+        try {
 
-        updateConnectionStatus();
-
-        console.log(
-            "Disconnected from backend",
-            event.code
-        );
-
-    };
-
-
-    socket.onerror = error => {
-
-        console.error(
-            "WebSocket error:",
-            error
-        );
-
-    };
-
-
-    socket.onmessage =
-        event => {
-
-            try {
-
-                const message =
-                    JSON.parse(
-                        event.data
-                    );
-
-                handleMessage(
-                    message
+            message =
+                JSON.parse(
+                    event.data
                 );
 
-            } catch (error) {
+        } catch {
 
-                console.error(
-                    "Invalid server message:",
-                    error
-                );
+            return;
 
-            }
+        }
 
-        };
+        handleServerMessage(message);
+
+    };
+
+    socket.onclose = () => {
+
+        console.log(
+            "Disconnected from server"
+        );
+
+    };
 
 }
 
 
-/*
-========================================
-CONNECTION STATUS
-========================================
-*/
+/* ========================================
+   SERVER MESSAGES
+======================================== */
 
-function updateConnectionStatus() {
-
-    const element =
-        document.getElementById(
-            "connectionStatus"
-        );
-
-    if (connected) {
-
-        element.textContent =
-            "● Connected";
-
-        element.classList.add(
-            "connected"
-        );
-
-    } else {
-
-        element.textContent =
-            "● Disconnected";
-
-        element.classList.remove(
-            "connected"
-        );
-
-    }
-
-}
-
-
-/*
-========================================
-HANDLE SERVER MESSAGES
-========================================
-*/
-
-function handleMessage(message) {
+function handleServerMessage(message) {
 
     console.log(
         "Server:",
         message
     );
 
+    switch (message.type) {
 
-    /*
-    ========================================
-    CONNECTED
-    ========================================
-    */
+        case "connected":
 
-    if (
-        message.type ===
-        "connected"
-    ) {
-
-        document.getElementById(
-            "yourName"
-        ).textContent =
-            message.name;
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    SEARCHING
-    ========================================
-    */
+        case "searching":
 
-    if (
-        message.type ===
-        "searching"
-    ) {
-
-        showScreen(
-            "queueScreen"
-        );
-
-    }
-
-
-    /*
-    ========================================
-    MATCH FOUND
-    ========================================
-    */
-
-    if (
-        message.type ===
-        "match_found"
-    ) {
-
-        myPlayerIndex =
-            message.playerIndex;
-
-        mySymbol =
-            message.symbol;
-
-        document.getElementById(
-            "opponentName"
-        ).textContent =
-            message.opponent;
-
-        document.getElementById(
-            "matchGame"
-        ).textContent =
-            formatGameName(
+            showQueue(
                 message.game
             );
 
+            break;
 
-        /*
-        ----------------------------------------
-        TIC-TAC-TOE MATCH
-        ----------------------------------------
-        */
 
-        if (
-            message.game ===
-            "tictactoe"
-        ) {
+        case "match_found":
 
             currentGame =
-                "tictactoe";
+                message.game;
 
-            document.getElementById(
-                "ticOpponent"
-            ).textContent =
-                "Opponent: " +
+            myPlayerIndex =
+                message.playerIndex;
+
+            opponentName =
                 message.opponent;
 
-            document.getElementById(
-                "symbolDisplay"
-            ).textContent =
-                "You are: " +
-                mySymbol;
+            showGame();
 
-            gameFinished = false;
+            break;
 
-            document.getElementById(
-                "gameResult"
-            ).textContent =
-                "";
 
-            document.getElementById(
-                "rematchButton"
-            ).style.display =
-                "none";
+        /* ================================
+           TIC TAC TOE
+        ================================= */
 
-            showScreen(
-                "tictactoeScreen"
+        case "tictactoe_start":
+
+            mySymbol =
+                message.yourSymbol;
+
+            myPlayerIndex =
+                message.playerIndex;
+
+            currentTurn =
+                message.currentTurn;
+
+            gameFinished =
+                false;
+
+            tttBoard =
+                message.board;
+
+            document
+                .getElementById(
+                    "tttResult"
+                )
+                .classList.add(
+                    "hidden"
+                );
+
+            updateTicTacToeHeader();
+
+            updateTicTacToeBoard();
+
+            break;
+
+
+        case "tictactoe_update":
+
+            currentTurn =
+                message.currentTurn;
+
+            tttBoard =
+                message.board;
+
+            updateTicTacToeHeader();
+
+            updateTicTacToeBoard();
+
+            break;
+
+
+        case "tictactoe_result":
+
+            gameFinished =
+                true;
+
+            tttBoard =
+                message.board;
+
+            currentTurn = null;
+
+            updateTicTacToeBoard();
+
+            showTicTacToeResult(
+                message.result
             );
 
-        } else {
+            break;
 
-            showScreen(
-                "matchScreen"
+
+        case "invalid_move":
+
+            alert(
+                message.reason
             );
 
-        }
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    TIC-TAC-TOE START
-    ========================================
-    */
+        case "rematch_waiting":
 
-    if (
-        message.type ===
-        "tictactoe_start"
-    ) {
+            document
+                .getElementById(
+                    "tttResultMessage"
+                )
+                .textContent =
+                "Waiting for your opponent to accept the rematch...";
 
-        mySymbol =
-            message.yourSymbol;
-
-        myPlayerIndex =
-            message.playerIndex;
+            break;
 
 
-        /*
-        IMPORTANT:
-        Set currentTurn BEFORE calling
-        updateBoard().
-        */
+        /* ================================
+           CHECKERS
+        ================================= */
 
-        currentTurn =
-            message.currentTurn;
+        case "checkers_update":
 
-        gameFinished = false;
+            currentTurn =
+                message.currentTurn;
 
+            myPlayerIndex =
+                message.playerIndex;
 
-        document.getElementById(
-            "symbolDisplay"
-        ).textContent =
-            "You are: " +
-            mySymbol;
+            checkersBoard =
+                message.board;
 
+            checkersMustContinue =
+                message.mustContinue;
 
-        document.getElementById(
-            "gameResult"
-        ).textContent =
-            "";
+            gameFinished =
+                false;
 
+            document
+                .getElementById(
+                    "checkersResult"
+                )
+                .classList.add(
+                    "hidden"
+                );
 
-        document.getElementById(
-            "rematchButton"
-        ).style.display =
-            "none";
+            checkersSelected =
+                null;
 
+            checkersLegalMoves =
+                [];
 
-        updateBoard(
-            message.board
-        );
+            updateCheckersHeader();
 
-        updateTurnDisplay();
+            renderCheckersBoard();
 
-
-        showScreen(
-            "tictactoeScreen"
-        );
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    TIC-TAC-TOE UPDATE
-    ========================================
-    */
+        case "checkers_result":
 
-    if (
-        message.type ===
-        "tictactoe_update"
-    ) {
+            gameFinished =
+                true;
 
-        currentTurn =
-            message.currentTurn;
+            checkersBoard =
+                message.board;
 
-        myPlayerIndex =
-            message.playerIndex;
+            checkersSelected =
+                null;
 
-        updateBoard(
-            message.board
-        );
+            checkersLegalMoves =
+                [];
 
-        updateTurnDisplay();
+            currentTurn = null;
 
-    }
+            renderCheckersBoard();
 
+            showCheckersResult(
+                message.result
+            );
 
-    /*
-    ========================================
-    TIC-TAC-TOE RESULT
-    ========================================
-    */
-
-    if (
-        message.type ===
-        "tictactoe_result"
-    ) {
-
-        gameFinished = true;
-
-        updateBoard(
-            message.board
-        );
-
-        showGameResult(
-            message
-        );
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    INVALID MOVE
-    ========================================
-    */
+        case "checkers_invalid_move":
 
-    if (
-        message.type ===
-        "invalid_move"
-    ) {
+            document
+                .getElementById(
+                    "checkersMessage"
+                )
+                .textContent =
+                message.reason;
 
-        alert(
-            message.reason
-        );
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    REMATCH WAITING
-    ========================================
-    */
+        case "checkers_rematch_waiting":
 
-    if (
-        message.type ===
-        "rematch_waiting"
-    ) {
+            document
+                .getElementById(
+                    "checkersResultMessage"
+                )
+                .textContent =
+                "Waiting for your opponent to accept the rematch...";
 
-        document.getElementById(
-            "gameResult"
-        ).textContent =
-            "Waiting for your opponent to choose Play Again...";
-
-        document.getElementById(
-            "rematchButton"
-        ).disabled =
-            true;
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    OPPONENT LEFT
-    ========================================
-    */
+        case "opponent_left":
 
-    if (
-        message.type ===
-        "opponent_left"
-    ) {
+            alert(
+                "Your opponent left the game."
+            );
 
-        alert(
-            "Your opponent left the game."
-        );
+            showHome();
 
-        resetTicTacToe();
-
-        currentGame = null;
-
-        showScreen(
-            "homeScreen"
-        );
-
-    }
+            break;
 
 
-    /*
-    ========================================
-    SEARCH CANCELLED
-    ========================================
-    */
+        case "search_cancelled":
 
-    if (
-        message.type ===
-        "search_cancelled"
-    ) {
+            showHome();
 
-        currentGame = null;
-
-        showScreen(
-            "homeScreen"
-        );
+            break;
 
     }
 
 }
 
 
-/*
-========================================
-FIND MATCH
-========================================
-*/
+/* ========================================
+   FIND MATCH
+======================================== */
 
 function findMatch(game) {
-
-    if (!connected) {
-
-        alert(
-            "You are not connected to the game server yet."
-        );
-
-        return;
-
-    }
 
     currentGame =
         game;
 
+    showQueue(game);
 
-    document.getElementById(
-        "queueTitle"
-    ).textContent =
-        "Finding " +
-        formatGameName(game) +
-        " Opponent";
+    if (
+        !socket ||
+        socket.readyState !== WebSocket.OPEN
+    ) {
 
+        connectSocket();
 
-    showScreen(
-        "queueScreen"
-    );
+        const waitForConnection =
+            setInterval(() => {
 
+                if (
+                    socket &&
+                    socket.readyState ===
+                    WebSocket.OPEN
+                ) {
 
-    socket.send(
-        JSON.stringify({
+                    clearInterval(
+                        waitForConnection
+                    );
 
-            type:
-                "find_match",
+                    socket.send(
+                        JSON.stringify({
 
-            game:
-                game
+                            type:
+                                "find_match",
 
-        })
-    );
+                            game:
+                                game
+
+                        })
+                    );
+
+                }
+
+            }, 100);
+
+    } else {
+
+        socket.send(
+            JSON.stringify({
+
+                type:
+                    "find_match",
+
+                game:
+                    game
+
+            })
+        );
+
+    }
 
 }
 
 
-/*
-========================================
-MAKE TIC-TAC-TOE MOVE
-========================================
-*/
+/* ========================================
+   SHOW QUEUE
+======================================== */
 
-function makeMove(position) {
+function showQueue(game) {
+
+    hideAllScreens();
+
+    document
+        .getElementById(
+            "queueScreen"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+    document
+        .getElementById(
+            "queueGame"
+        )
+        .textContent =
+        "Searching for " +
+        formatGameName(game) +
+        " opponent...";
+
+}
+
+
+/* ========================================
+   SHOW GAME
+======================================== */
+
+function showGame() {
+
+    hideAllScreens();
 
     if (
-        !socket ||
-        !connected
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        currentGame !==
+        currentGame ===
         "tictactoe"
     ) {
 
-        return;
+        document
+            .getElementById(
+                "tictactoeScreen"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+        document
+            .getElementById(
+                "tttOpponent"
+            )
+            .textContent =
+            opponentName;
 
     }
-
-
-    if (gameFinished) {
-
-        return;
-
-    }
-
 
     if (
-        currentTurn !==
+        currentGame ===
+        "checkers"
+    ) {
+
+        document
+            .getElementById(
+                "checkersScreen"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+        document
+            .getElementById(
+                "checkersOpponent"
+            )
+            .textContent =
+            opponentName;
+
+        document
+            .getElementById(
+                "checkersColor"
+            )
+            .textContent =
+            myPlayerIndex === 0
+                ? "You: Red"
+                : "You: Black";
+
+    }
+
+}
+
+
+/* ========================================
+   HIDE ALL SCREENS
+======================================== */
+
+function hideAllScreens() {
+
+    document
+        .querySelectorAll(
+            ".screen"
+        )
+        .forEach(
+            screen =>
+                screen.classList.add(
+                    "hidden"
+                )
+        );
+
+}
+
+
+/* ========================================
+   FORMAT GAME NAME
+======================================== */
+
+function formatGameName(game) {
+
+    if (
+        game ===
+        "tictactoe"
+    ) {
+        return "Tic-Tac-Toe";
+    }
+
+    if (
+        game ===
+        "checkers"
+    ) {
+        return "Checkers";
+    }
+
+    if (
+        game ===
+        "battleship"
+    ) {
+        return "Battleship";
+    }
+
+    return game;
+
+}
+
+
+/* ========================================
+   CANCEL SEARCH
+======================================== */
+
+function cancelSearch() {
+
+    if (
+        socket &&
+        socket.readyState ===
+        WebSocket.OPEN
+    ) {
+
+        socket.send(
+            JSON.stringify({
+
+                type:
+                    "cancel_search"
+
+            })
+        );
+
+    }
+
+    showHome();
+
+}
+
+
+/* ========================================
+   HOME
+======================================== */
+
+function showHome() {
+
+    hideAllScreens();
+
+    document
+        .getElementById(
+            "homeScreen"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+    currentGame =
+        null;
+
+    myPlayerIndex =
+        null;
+
+    opponentName =
+        "";
+
+}
+
+
+/* ========================================
+   TIC TAC TOE HEADER
+======================================== */
+
+function updateTicTacToeHeader() {
+
+    document
+        .getElementById(
+            "tttYou"
+        )
+        .textContent =
+        "You: " +
+        mySymbol;
+
+    document
+        .getElementById(
+            "tttOpponent"
+        )
+        .textContent =
+        opponentName;
+
+    const turnElement =
+        document
+            .getElementById(
+                "tttTurn"
+            );
+
+    if (
+        currentTurn ===
         myPlayerIndex
     ) {
 
-        return;
+        turnElement.textContent =
+            "Your turn";
+
+    } else {
+
+        turnElement.textContent =
+            "Opponent's turn";
 
     }
 
+}
 
-    console.log(
-        "Sending move:",
-        position
-    );
 
+/* ========================================
+   CREATE TTT BOARD
+======================================== */
+
+function createTicTacToeBoard() {
+
+    const boardElement =
+        document
+            .getElementById(
+                "tttBoard"
+            );
+
+    boardElement.innerHTML = "";
+
+    for (
+        let i = 0;
+        i < 9;
+        i++
+    ) {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+        button.className =
+            "ttt-cell";
+
+        button.dataset.position =
+            i;
+
+        button.onclick =
+            () =>
+                makeTicTacToeMove(i);
+
+        boardElement.appendChild(
+            button
+        );
+
+    }
+
+}
+
+
+/* ========================================
+   UPDATE TTT BOARD
+======================================== */
+
+function updateTicTacToeBoard() {
+
+    if (
+        !document
+            .getElementById(
+                "tttBoard"
+            )
+            .children.length
+    ) {
+
+        createTicTacToeBoard();
+
+    }
+
+    const cells =
+        document
+            .getElementById(
+                "tttBoard"
+            )
+            .children;
+
+    for (
+        let i = 0;
+        i < 9;
+        i++
+    ) {
+
+        cells[i].textContent =
+            tttBoard[i] || "";
+
+        cells[i].disabled =
+            gameFinished ||
+            tttBoard[i] !== "" ||
+            currentTurn !==
+                myPlayerIndex;
+
+    }
+
+}
+
+
+/* ========================================
+   TTT MOVE
+======================================== */
+
+function makeTicTacToeMove(position) {
+
+    if (
+        gameFinished ||
+        currentTurn !==
+            myPlayerIndex
+    ) {
+        return;
+    }
 
     socket.send(
         JSON.stringify({
@@ -1305,215 +1888,76 @@ function makeMove(position) {
 }
 
 
-/*
-========================================
-UPDATE BOARD
-========================================
-*/
+/* ========================================
+   TTT RESULT
+======================================== */
 
-function updateBoard(board) {
+function showTicTacToeResult(
+    result
+) {
 
-    const cells =
-        document.querySelectorAll(
-            ".cell"
-        );
+    const resultBox =
+        document
+            .getElementById(
+                "tttResult"
+            );
 
+    const title =
+        document
+            .getElementById(
+                "tttResultTitle"
+            );
 
-    cells.forEach(
-        (cell, index) => {
+    const message =
+        document
+            .getElementById(
+                "tttResultMessage"
+            );
 
-            cell.textContent =
-                board[index];
-
-
-            cell.disabled =
-                board[index] !== "" ||
-                gameFinished ||
-                currentTurn !==
-                    myPlayerIndex;
-
-        }
+    resultBox.classList.remove(
+        "hidden"
     );
 
-}
-
-
-/*
-========================================
-TURN DISPLAY
-========================================
-*/
-
-function updateTurnDisplay() {
-
-    const display =
-        document.getElementById(
-            "turnDisplay"
-        );
-
-
-    if (gameFinished) {
-
-        return;
-
-    }
-
-
     if (
-        currentTurn ===
-        myPlayerIndex
-    ) {
-
-        display.textContent =
-            "🟢 Your turn!";
-
-    } else {
-
-        display.textContent =
-            "⏳ Opponent's turn...";
-
-    }
-
-}
-
-
-/*
-========================================
-GAME RESULT
-========================================
-*/
-
-function showGameResult(message) {
-
-    const result =
-        document.getElementById(
-            "gameResult"
-        );
-
-
-    if (
-        message.result ===
+        result ===
         "win"
     ) {
 
-        result.textContent =
-            "🎉 YOU WIN!";
+        title.textContent =
+            "You Win! 🎉";
+
+        message.textContent =
+            "Congratulations!";
 
     } else if (
-        message.result ===
+        result ===
         "loss"
     ) {
 
-        result.textContent =
-            "😔 YOU LOSE";
+        title.textContent =
+            "You Lost";
+
+        message.textContent =
+            "Better luck next time!";
 
     } else {
 
-        result.textContent =
-            "🤝 DRAW!";
+        title.textContent =
+            "Draw";
+
+        message.textContent =
+            "Nobody won this round.";
 
     }
-
-
-    document.getElementById(
-        "turnDisplay"
-    ).textContent =
-        "";
-
-
-    document.getElementById(
-        "rematchButton"
-    ).style.display =
-        "inline-block";
-
-
-    document.getElementById(
-        "rematchButton"
-    ).disabled =
-        false;
-
-
-    highlightWinningCells(
-        message.winningLine
-    );
 
 }
 
 
-/*
-========================================
-HIGHLIGHT WINNING CELLS
-========================================
-*/
+/* ========================================
+   TTT REMATCH
+======================================== */
 
-function highlightWinningCells(line) {
-
-    const cells =
-        document.querySelectorAll(
-            ".cell"
-        );
-
-
-    cells.forEach(
-        cell => {
-
-            cell.classList.remove(
-                "winning"
-            );
-
-        }
-    );
-
-
-    if (!line) {
-
-        return;
-
-    }
-
-
-    line.forEach(
-        index => {
-
-            cells[index].classList.add(
-                "winning"
-            );
-
-        }
-    );
-
-}
-
-
-/*
-========================================
-REQUEST REMATCH
-========================================
-*/
-
-function requestRematch() {
-
-    if (
-        !socket ||
-        !connected
-    ) {
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "rematchButton"
-    ).disabled =
-        true;
-
-
-    document.getElementById(
-        "gameResult"
-    ).textContent =
-        "Waiting for your opponent...";
-
+function requestTicTacToeRematch() {
 
     socket.send(
         JSON.stringify({
@@ -1527,48 +1971,748 @@ function requestRematch() {
 }
 
 
-/*
-========================================
-CANCEL SEARCH
-========================================
-*/
+/* ========================================
+   CHECKERS HEADER
+======================================== */
 
-function cancelSearch() {
+function updateCheckersHeader() {
 
-    if (socket) {
+    const turnElement =
+        document
+            .getElementById(
+                "checkersTurn"
+            );
 
-        socket.send(
-            JSON.stringify({
+    if (
+        currentTurn ===
+        myPlayerIndex
+    ) {
 
-                type:
-                    "cancel_search"
+        turnElement.textContent =
+            "Your turn";
 
-            })
-        );
+    } else {
+
+        turnElement.textContent =
+            "Opponent's turn";
 
     }
 
-
-    currentGame =
-        null;
+}
 
 
-    showScreen(
-        "homeScreen"
+/* ========================================
+   CHECKERS PIECE OWNER
+======================================== */
+
+function checkersPieceOwner(
+    piece
+) {
+
+    if (
+        piece === "r" ||
+        piece === "R"
+    ) {
+
+        return 0;
+
+    }
+
+    if (
+        piece === "b" ||
+        piece === "B"
+    ) {
+
+        return 1;
+
+    }
+
+    return null;
+
+}
+
+
+/* ========================================
+   CHECKERS KING
+======================================== */
+
+function isCheckersKing(piece) {
+
+    return (
+        piece === "R" ||
+        piece === "B"
     );
 
 }
 
 
-/*
-========================================
-LEAVE GAME
-========================================
-*/
+/* ========================================
+   CHECKERS DIRECTIONS
+======================================== */
+
+function getCheckersDirections(
+    piece
+) {
+
+    if (
+        isCheckersKing(piece)
+    ) {
+
+        return [
+
+            [-1, -1],
+            [-1, 1],
+            [1, -1],
+            [1, 1]
+
+        ];
+
+    }
+
+    const owner =
+        checkersPieceOwner(
+            piece
+        );
+
+    if (
+        owner === 0
+    ) {
+
+        return [
+
+            [1, -1],
+            [1, 1]
+
+        ];
+
+    }
+
+    return [
+
+        [-1, -1],
+        [-1, 1]
+
+    ];
+
+}
+
+
+/* ========================================
+   GET CHECKERS MOVES
+======================================== */
+
+function getClientCheckersMoves(
+    row,
+    col
+) {
+
+    const piece =
+        checkersBoard[row][col];
+
+    if (!piece) {
+        return [];
+    }
+
+    const moves = [];
+
+    const directions =
+        getCheckersDirections(
+            piece
+        );
+
+    for (
+        const [
+            dr,
+            dc
+        ]
+        of directions
+    ) {
+
+        const normalRow =
+            row + dr;
+
+        const normalCol =
+            col + dc;
+
+        const jumpRow =
+            row + dr * 2;
+
+        const jumpCol =
+            col + dc * 2;
+
+        if (
+            normalRow >= 0 &&
+            normalRow < 8 &&
+            normalCol >= 0 &&
+            normalCol < 8 &&
+            !checkersBoard[
+                normalRow
+            ][
+                normalCol
+            ]
+        ) {
+
+            moves.push({
+
+                row:
+                    normalRow,
+
+                col:
+                    normalCol,
+
+                capture:
+                    false
+
+            });
+
+        }
+
+        if (
+            jumpRow >= 0 &&
+            jumpRow < 8 &&
+            jumpCol >= 0 &&
+            jumpCol < 8
+        ) {
+
+            const middle =
+                checkersBoard[
+                    normalRow
+                ] &&
+                checkersBoard[
+                    normalRow
+                ][
+                    normalCol
+                ];
+
+            const landing =
+                checkersBoard[
+                    jumpRow
+                ][
+                    jumpCol
+                ];
+
+            if (
+                middle &&
+                checkersPieceOwner(
+                    middle
+                ) !==
+                    checkersPieceOwner(
+                        piece
+                    ) &&
+                !landing
+            ) {
+
+                moves.push({
+
+                    row:
+                        jumpRow,
+
+                    col:
+                        jumpCol,
+
+                    capture:
+                        true
+
+                });
+
+            }
+
+        }
+
+    }
+
+    return moves;
+
+}
+
+
+/* ========================================
+   PLAYER HAS CAPTURE
+======================================== */
+
+function playerHasCapture() {
+
+    for (
+        let row = 0;
+        row < 8;
+        row++
+    ) {
+
+        for (
+            let col = 0;
+            col < 8;
+            col++
+        ) {
+
+            const piece =
+                checkersBoard[row][col];
+
+            if (
+                piece &&
+                checkersPieceOwner(
+                    piece
+                ) ===
+                    myPlayerIndex
+            ) {
+
+                const moves =
+                    getClientCheckersMoves(
+                        row,
+                        col
+                    );
+
+                if (
+                    moves.some(
+                        move =>
+                            move.capture
+                    )
+                ) {
+
+                    return true;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    return false;
+
+}
+
+
+/* ========================================
+   SELECT CHECKERS PIECE
+======================================== */
+
+function selectCheckersPiece(
+    row,
+    col
+) {
+
+    if (
+        gameFinished ||
+        currentTurn !==
+            myPlayerIndex
+    ) {
+
+        return;
+
+    }
+
+    const piece =
+        checkersBoard[row][col];
+
+    if (!piece) {
+        return;
+    }
+
+    if (
+        checkersPieceOwner(
+            piece
+        ) !==
+            myPlayerIndex
+    ) {
+
+        return;
+
+    }
+
+    if (
+        checkersMustContinue &&
+        (
+            checkersMustContinue.row !==
+                row ||
+            checkersMustContinue.col !==
+                col
+        )
+    ) {
+
+        document
+            .getElementById(
+                "checkersMessage"
+            )
+            .textContent =
+            "You must continue the capture.";
+
+        return;
+
+    }
+
+    const allMoves =
+        getClientCheckersMoves(
+            row,
+            col
+        );
+
+    const mustCapture =
+        playerHasCapture();
+
+    let legalMoves =
+        allMoves;
+
+    if (mustCapture) {
+
+        legalMoves =
+            allMoves.filter(
+                move =>
+                    move.capture
+            );
+
+    }
+
+    if (
+        legalMoves.length === 0
+    ) {
+
+        document
+            .getElementById(
+                "checkersMessage"
+            )
+            .textContent =
+            "That piece cannot move.";
+
+        return;
+
+    }
+
+    checkersSelected = {
+
+        row:
+            row,
+
+        col:
+            col
+
+    };
+
+    checkersLegalMoves =
+        legalMoves;
+
+    document
+        .getElementById(
+            "checkersMessage"
+        )
+        .textContent =
+        mustCapture
+            ? "Capture required!"
+            : "Choose a destination.";
+
+    renderCheckersBoard();
+
+}
+
+
+/* ========================================
+   CLICK CHECKERS SQUARE
+======================================== */
+
+function handleCheckersSquareClick(
+    row,
+    col
+) {
+
+    if (
+        gameFinished ||
+        currentTurn !==
+            myPlayerIndex
+    ) {
+
+        return;
+
+    }
+
+    // Destination selected
+    if (
+        checkersSelected
+    ) {
+
+        const move =
+            checkersLegalMoves.find(
+                item =>
+                    item.row === row &&
+                    item.col === col
+            );
+
+        if (move) {
+
+            socket.send(
+                JSON.stringify({
+
+                    type:
+                        "checkers_move",
+
+                    fromRow:
+                        checkersSelected.row,
+
+                    fromCol:
+                        checkersSelected.col,
+
+                    toRow:
+                        row,
+
+                    toCol:
+                        col
+
+                })
+            );
+
+            checkersSelected =
+                null;
+
+            checkersLegalMoves =
+                [];
+
+            return;
+
+        }
+
+    }
+
+    // Otherwise select piece
+    selectCheckersPiece(
+        row,
+        col
+    );
+
+}
+
+
+/* ========================================
+   RENDER CHECKERS BOARD
+======================================== */
+
+function renderCheckersBoard() {
+
+    const boardElement =
+        document
+            .getElementById(
+                "checkersBoard"
+            );
+
+    boardElement.innerHTML = "";
+
+    for (
+        let row = 0;
+        row < 8;
+        row++
+    ) {
+
+        for (
+            let col = 0;
+            col < 8;
+            col++
+        ) {
+
+            const square =
+                document.createElement(
+                    "button"
+                );
+
+            square.className =
+                "checker-square " +
+                (
+                    (row + col) % 2 === 0
+                        ? "checker-light"
+                        : "checker-dark"
+                );
+
+            square.onclick =
+                () =>
+                    handleCheckersSquareClick(
+                        row,
+                        col
+                    );
+
+            // Selected square
+            if (
+                checkersSelected &&
+                checkersSelected.row ===
+                    row &&
+                checkersSelected.col ===
+                    col
+            ) {
+
+                square.classList.add(
+                    "selected-square"
+                );
+
+            }
+
+            // Legal destination
+            const legalMove =
+                checkersLegalMoves.find(
+                    move =>
+                        move.row === row &&
+                        move.col === col
+                );
+
+            if (legalMove) {
+
+                square.classList.add(
+                    "legal-square"
+                );
+
+                if (
+                    legalMove.capture
+                ) {
+
+                    square.classList.add(
+                        "capture-square"
+                    );
+
+                }
+
+            }
+
+            const piece =
+                checkersBoard &&
+                checkersBoard[row]
+                    ? checkersBoard[row][col]
+                    : null;
+
+            if (piece) {
+
+                const pieceElement =
+                    document.createElement(
+                        "div"
+                    );
+
+                pieceElement.classList.add(
+                    "checker-piece"
+                );
+
+                if (
+                    piece === "r" ||
+                    piece === "R"
+                ) {
+
+                    pieceElement.classList.add(
+                        "piece-red"
+                    );
+
+                } else {
+
+                    pieceElement.classList.add(
+                        "piece-black"
+                    );
+
+                }
+
+                if (
+                    isCheckersKing(
+                        piece
+                    )
+                ) {
+
+                    pieceElement.classList.add(
+                        "piece-king"
+                    );
+
+                }
+
+                square.appendChild(
+                    pieceElement
+                );
+
+            }
+
+            boardElement.appendChild(
+                square
+            );
+
+        }
+
+    }
+
+}
+
+
+/* ========================================
+   CHECKERS RESULT
+======================================== */
+
+function showCheckersResult(
+    result
+) {
+
+    const resultBox =
+        document
+            .getElementById(
+                "checkersResult"
+            );
+
+    const title =
+        document
+            .getElementById(
+                "checkersResultTitle"
+            );
+
+    const message =
+        document
+            .getElementById(
+                "checkersResultMessage"
+            );
+
+    resultBox.classList.remove(
+        "hidden"
+    );
+
+    if (
+        result ===
+        "win"
+    ) {
+
+        title.textContent =
+            "You Win! 🎉";
+
+        message.textContent =
+            "You defeated your opponent.";
+
+    } else {
+
+        title.textContent =
+            "You Lost";
+
+        message.textContent =
+            "Your opponent won this game.";
+
+    }
+
+}
+
+
+/* ========================================
+   CHECKERS REMATCH
+======================================== */
+
+function requestCheckersRematch() {
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "checkers_rematch"
+
+        })
+    );
+
+}
+
+
+/* ========================================
+   LEAVE GAME
+======================================== */
 
 function leaveGame() {
 
-    if (socket) {
+    if (
+        socket &&
+        socket.readyState ===
+        WebSocket.OPEN
+    ) {
 
         socket.send(
             JSON.stringify({
@@ -1581,163 +2725,16 @@ function leaveGame() {
 
     }
 
-
-    resetTicTacToe();
-
-
-    currentGame =
-        null;
-
-
-    showScreen(
-        "homeScreen"
-    );
+    showHome();
 
 }
 
 
-/*
-========================================
-RESET TIC-TAC-TOE
-========================================
-*/
+/* ========================================
+   START
+======================================== */
 
-function resetTicTacToe() {
-
-    currentTurn =
-        null;
-
-    mySymbol =
-        null;
-
-    myPlayerIndex =
-        null;
-
-    gameFinished =
-        false;
-
-
-    document.querySelectorAll(
-        ".cell"
-    ).forEach(
-        cell => {
-
-            cell.textContent =
-                "";
-
-            cell.disabled =
-                false;
-
-            cell.classList.remove(
-                "winning"
-            );
-
-        }
-    );
-
-
-    document.getElementById(
-        "gameResult"
-    ).textContent =
-        "";
-
-
-    document.getElementById(
-        "turnDisplay"
-    ).textContent =
-        "Waiting for game...";
-
-
-    document.getElementById(
-        "rematchButton"
-    ).style.display =
-        "none";
-
-}
-
-
-/*
-========================================
-SCREEN SWITCHING
-========================================
-*/
-
-function showScreen(id) {
-
-    document
-        .querySelectorAll(
-            ".screen"
-        )
-        .forEach(
-            screen => {
-
-                screen.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-
-    document
-        .getElementById(id)
-        .classList.add(
-            "active"
-        );
-
-}
-
-
-/*
-========================================
-GAME NAME
-========================================
-*/
-
-function formatGameName(game) {
-
-    if (
-        game ===
-        "tictactoe"
-    ) {
-
-        return "Tic-Tac-Toe";
-
-    }
-
-
-    if (
-        game ===
-        "checkers"
-    ) {
-
-        return "Checkers";
-
-    }
-
-
-    if (
-        game ===
-        "battleship"
-    ) {
-
-        return "Battleship";
-
-    }
-
-
-    return game;
-
-}
-
-
-/*
-========================================
-START
-========================================
-*/
-
-connectToServer();
+connectSocket();
 
 </script>
 

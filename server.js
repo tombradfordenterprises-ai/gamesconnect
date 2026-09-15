@@ -29,14 +29,12 @@ const wss = new WebSocket.Server({
 
 const players = new Map();
 
-// Separate matchmaking queues
 const queues = {
     checkers: [],
     tictactoe: [],
     battleship: []
 };
 
-// Active game rooms
 const rooms = new Map();
 
 // ========================================
@@ -66,7 +64,7 @@ function generateRoomId() {
 }
 
 // ========================================
-// REMOVE PLAYER FROM ALL QUEUES
+// REMOVE FROM QUEUES
 // ========================================
 
 function removeFromQueues(ws) {
@@ -90,7 +88,6 @@ function findMatch(ws, game) {
 
     const queue = queues[game];
 
-    // Is somebody already waiting?
     if (queue.length > 0) {
 
         const opponent = queue.shift();
@@ -104,7 +101,6 @@ function findMatch(ws, game) {
         return;
     }
 
-    // Nobody waiting
     queue.push(ws);
 
     send(ws, {
@@ -118,7 +114,7 @@ function findMatch(ws, game) {
 }
 
 // ========================================
-// CREATE GAME ROOM
+// CREATE ROOM
 // ========================================
 
 function createRoom(player1, player2, game) {
@@ -128,20 +124,60 @@ function createRoom(player1, player2, game) {
     const room = {
         id: roomId,
         game: game,
+
         players: [
             player1,
             player2
-        ]
+        ],
+
+        // Tic-Tac-Toe data
+        board: [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+
+        currentTurn: 0,
+
+        gameOver: false,
+
+        winner: null,
+
+        rematchRequests: new Set()
     };
 
-    rooms.set(roomId, room);
+    // Randomly decide who starts
+    room.currentTurn =
+        Math.random() < 0.5 ? 0 : 1;
 
-    players.get(player1).room = roomId;
-    players.get(player2).room = roomId;
+    rooms.set(
+        roomId,
+        room
+    );
+
+    players.get(player1).room =
+        roomId;
+
+    players.get(player2).room =
+        roomId;
+
+    // Player indexes
+    players.get(player1).playerIndex = 0;
+    players.get(player2).playerIndex = 1;
 
     console.log(
         `Match created: ${game} | ${roomId}`
     );
+
+    // ====================================
+    // TELL PLAYER 1
+    // ====================================
 
     send(player1, {
 
@@ -153,9 +189,19 @@ function createRoom(player1, player2, game) {
 
         playerIndex: 0,
 
+        symbol:
+            game === "tictactoe"
+                ? "X"
+                : null,
+
         opponent:
             players.get(player2).name
+
     });
+
+    // ====================================
+    // TELL PLAYER 2
+    // ====================================
 
     send(player2, {
 
@@ -167,154 +213,199 @@ function createRoom(player1, player2, game) {
 
         playerIndex: 1,
 
+        symbol:
+            game === "tictactoe"
+                ? "O"
+                : null,
+
         opponent:
             players.get(player1).name
+
     });
+
+    // ====================================
+    // START TIC-TAC-TOE
+    // ====================================
+
+    if (game === "tictactoe") {
+
+        startTicTacToe(
+            room
+        );
+
+    }
 }
 
 // ========================================
-// WEBSOCKET CONNECTION
+// START TIC-TAC-TOE
 // ========================================
 
-wss.on("connection", ws => {
+function startTicTacToe(room) {
 
-    const player = {
+    room.board = [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ];
 
-        name: generatePlayerName(),
+    room.gameOver = false;
 
-        room: null
+    room.winner = null;
 
-    };
+    room.rematchRequests =
+        new Set();
 
-    players.set(ws, player);
+    const player1 =
+        room.players[0];
 
-    console.log(
-        `${player.name} connected`
-    );
+    const player2 =
+        room.players[1];
 
-    // Tell frontend that connection worked
-    send(ws, {
+    // Send initial board to both players
+    send(player1, {
 
-        type: "connected",
+        type: "tictactoe_start",
 
-        name: player.name
+        board: room.board,
+
+        yourSymbol: "X",
+
+        currentTurn:
+            room.currentTurn,
+
+        playerIndex: 0
 
     });
 
-    // ====================================
-    // RECEIVE MESSAGE
-    // ====================================
+    send(player2, {
 
-    ws.on("message", rawMessage => {
+        type: "tictactoe_start",
 
-        let message;
+        board: room.board,
 
-        try {
+        yourSymbol: "O",
 
-            message =
-                JSON.parse(rawMessage);
+        currentTurn:
+            room.currentTurn,
 
-        } catch (error) {
+        playerIndex: 1
 
-            console.log(
-                "Invalid message received"
-            );
+    });
 
-            return;
-        }
+    console.log(
+        `Tic-Tac-Toe started: ${room.id}`
+    );
+}
 
-        // =================================
-        // FIND MATCH
-        // =================================
+// ========================================
+// CHECK WINNER
+// ========================================
 
-        if (
-            message.type === "find_match"
-        ) {
+function checkWinner(board) {
 
-            const allowedGames = [
-                "checkers",
-                "tictactoe",
-                "battleship"
-            ];
+    const winningLines = [
 
-            if (
-                !allowedGames.includes(
-                    message.game
-                )
-            ) {
+        [0, 1, 2],
 
-                return;
-            }
+        [3, 4, 5],
 
-            findMatch(
-                ws,
-                message.game
-            );
+        [6, 7, 8],
 
-            return;
-        }
+        [0, 3, 6],
 
-        // =================================
-        // CANCEL SEARCH
-        // =================================
+        [1, 4, 7],
+
+        [2, 5, 8],
+
+        [0, 4, 8],
+
+        [2, 4, 6]
+
+    ];
+
+    for (
+        const line
+        of winningLines
+    ) {
+
+        const [a, b, c] =
+            line;
 
         if (
-            message.type === "cancel_search"
+            board[a] &&
+            board[a] === board[b] &&
+            board[a] === board[c]
         ) {
 
-            removeFromQueues(ws);
+            return {
+                winner: board[a],
+                line: line
+            };
 
-            send(ws, {
+        }
+    }
 
-                type: "search_cancelled"
+    if (
+        board.every(
+            cell => cell !== ""
+        )
+    ) {
+
+        return {
+            winner: "draw",
+            line: []
+        };
+
+    }
+
+    return null;
+}
+
+// ========================================
+// SEND BOARD TO BOTH PLAYERS
+// ========================================
+
+function broadcastBoard(room) {
+
+    room.players.forEach(
+        (player, index) => {
+
+            send(player, {
+
+                type:
+                    "tictactoe_update",
+
+                board:
+                    room.board,
+
+                currentTurn:
+                    room.currentTurn,
+
+                playerIndex:
+                    index
 
             });
 
-            return;
         }
-
-        // =================================
-        // LEAVE GAME
-        // =================================
-
-        if (
-            message.type === "leave_game"
-        ) {
-
-            leaveGame(ws);
-
-            return;
-        }
-
-    });
-
-    // ====================================
-    // DISCONNECT
-    // ====================================
-
-    ws.on("close", () => {
-
-        console.log(
-            `${player.name} disconnected`
-        );
-
-        removeFromQueues(ws);
-
-        leaveGame(ws);
-
-        players.delete(ws);
-
-    });
-
-});
+    );
+}
 
 // ========================================
-// LEAVE GAME
+// HANDLE TIC-TAC-TOE MOVE
 // ========================================
 
-function leaveGame(ws) {
+function handleTicTacToeMove(
+    ws,
+    message
+) {
 
-    const player = players.get(ws);
+    const player =
+        players.get(ws);
 
     if (!player) {
         return;
@@ -328,39 +419,500 @@ function leaveGame(ws) {
         rooms.get(player.room);
 
     if (!room) {
+        return;
+    }
+
+    if (
+        room.game !==
+        "tictactoe"
+    ) {
+
+        return;
+    }
+
+    // Game already finished
+    if (room.gameOver) {
+        return;
+    }
+
+    const playerIndex =
+        player.playerIndex;
+
+    // Not this player's turn
+    if (
+        room.currentTurn !==
+        playerIndex
+    ) {
+
+        send(ws, {
+
+            type:
+                "invalid_move",
+
+            reason:
+                "It is not your turn."
+
+        });
+
+        return;
+    }
+
+    const position =
+        Number(message.position);
+
+    // Invalid board position
+    if (
+        !Number.isInteger(position) ||
+        position < 0 ||
+        position > 8
+    ) {
+
+        send(ws, {
+
+            type:
+                "invalid_move",
+
+            reason:
+                "Invalid board position."
+
+        });
+
+        return;
+    }
+
+    // Square already occupied
+    if (
+        room.board[position] !== ""
+    ) {
+
+        send(ws, {
+
+            type:
+                "invalid_move",
+
+            reason:
+                "That square is already occupied."
+
+        });
+
+        return;
+    }
+
+    const symbol =
+        playerIndex === 0
+            ? "X"
+            : "O";
+
+    room.board[position] =
+        symbol;
+
+    // Check for winner/draw
+    const result =
+        checkWinner(
+            room.board
+        );
+
+    if (result) {
+
+        room.gameOver = true;
+
+        room.winner =
+            result.winner;
+
+        room.players.forEach(
+            (playerSocket, index) => {
+
+                let resultType;
+
+                if (
+                    result.winner ===
+                    "draw"
+                ) {
+
+                    resultType =
+                        "draw";
+
+                } else if (
+                    index ===
+                    playerIndex
+                ) {
+
+                    resultType =
+                        "win";
+
+                } else {
+
+                    resultType =
+                        "loss";
+
+                }
+
+                send(
+                    playerSocket,
+                    {
+
+                        type:
+                            "tictactoe_result",
+
+                        board:
+                            room.board,
+
+                        result:
+                            resultType,
+
+                        winner:
+                            result.winner,
+
+                        winningLine:
+                            result.line
+
+                    }
+                );
+
+            }
+        );
+
+        console.log(
+            `Tic-Tac-Toe finished: ${room.id} | ${result.winner}`
+        );
+
+        return;
+    }
+
+    // Switch turns
+    room.currentTurn =
+        playerIndex === 0
+            ? 1
+            : 0;
+
+    broadcastBoard(
+        room
+    );
+}
+
+// ========================================
+// HANDLE REMATCH
+// ========================================
+
+function handleRematch(ws) {
+
+    const player =
+        players.get(ws);
+
+    if (!player || !player.room) {
+        return;
+    }
+
+    const room =
+        rooms.get(player.room);
+
+    if (!room) {
+        return;
+    }
+
+    if (
+        room.game !==
+        "tictactoe"
+    ) {
+        return;
+    }
+
+    room.rematchRequests.add(
+        ws
+    );
+
+    // Tell the player their request was received
+    send(ws, {
+
+        type:
+            "rematch_waiting"
+
+    });
+
+    // Both players requested rematch
+    if (
+        room.rematchRequests.size === 2
+    ) {
+
+        room.currentTurn =
+            Math.random() < 0.5
+                ? 0
+                : 1;
+
+        startTicTacToe(
+            room
+        );
+
+    }
+}
+
+// ========================================
+// WEBSOCKET CONNECTION
+// ========================================
+
+wss.on(
+    "connection",
+    ws => {
+
+        const player = {
+
+            name:
+                generatePlayerName(),
+
+            room:
+                null,
+
+            playerIndex:
+                null
+
+        };
+
+        players.set(
+            ws,
+            player
+        );
+
+        console.log(
+            `${player.name} connected`
+        );
+
+        send(ws, {
+
+            type:
+                "connected",
+
+            name:
+                player.name
+
+        });
+
+        // =================================
+        // RECEIVE MESSAGE
+        // =================================
+
+        ws.on(
+            "message",
+            rawMessage => {
+
+                let message;
+
+                try {
+
+                    message =
+                        JSON.parse(
+                            rawMessage
+                        );
+
+                } catch (error) {
+
+                    console.log(
+                        "Invalid message received"
+                    );
+
+                    return;
+                }
+
+                // =========================
+                // FIND MATCH
+                // =========================
+
+                if (
+                    message.type ===
+                    "find_match"
+                ) {
+
+                    const allowedGames = [
+                        "checkers",
+                        "tictactoe",
+                        "battleship"
+                    ];
+
+                    if (
+                        !allowedGames.includes(
+                            message.game
+                        )
+                    ) {
+
+                        return;
+                    }
+
+                    findMatch(
+                        ws,
+                        message.game
+                    );
+
+                    return;
+                }
+
+                // =========================
+                // CANCEL SEARCH
+                // =========================
+
+                if (
+                    message.type ===
+                    "cancel_search"
+                ) {
+
+                    removeFromQueues(ws);
+
+                    send(ws, {
+
+                        type:
+                            "search_cancelled"
+
+                    });
+
+                    return;
+                }
+
+                // =========================
+                // TIC-TAC-TOE MOVE
+                // =========================
+
+                if (
+                    message.type ===
+                    "tictactoe_move"
+                ) {
+
+                    handleTicTacToeMove(
+                        ws,
+                        message
+                    );
+
+                    return;
+                }
+
+                // =========================
+                // REMATCH
+                // =========================
+
+                if (
+                    message.type ===
+                    "tictactoe_rematch"
+                ) {
+
+                    handleRematch(
+                        ws
+                    );
+
+                    return;
+                }
+
+                // =========================
+                // LEAVE GAME
+                // =========================
+
+                if (
+                    message.type ===
+                    "leave_game"
+                ) {
+
+                    leaveGame(ws);
+
+                    return;
+                }
+
+            }
+        );
+
+        // =================================
+        // DISCONNECT
+        // =================================
+
+        ws.on(
+            "close",
+            () => {
+
+                console.log(
+                    `${player.name} disconnected`
+                );
+
+                removeFromQueues(
+                    ws
+                );
+
+                leaveGame(
+                    ws
+                );
+
+                players.delete(
+                    ws
+                );
+
+            }
+        );
+
+    }
+);
+
+// ========================================
+// LEAVE GAME
+// ========================================
+
+function leaveGame(ws) {
+
+    const player =
+        players.get(ws);
+
+    if (!player) {
+        return;
+    }
+
+    if (!player.room) {
+        return;
+    }
+
+    const room =
+        rooms.get(
+            player.room
+        );
+
+    if (!room) {
 
         player.room = null;
 
         return;
     }
 
-    // Find opponent
     const opponent =
         room.players.find(
-            other => other !== ws
+            other =>
+                other !== ws
         );
 
     if (opponent) {
 
         send(opponent, {
 
-            type: "opponent_left"
+            type:
+                "opponent_left"
 
         });
 
         const opponentData =
-            players.get(opponent);
+            players.get(
+                opponent
+            );
 
         if (opponentData) {
 
             opponentData.room = null;
 
+            opponentData.playerIndex =
+                null;
+
         }
+
     }
 
-    rooms.delete(room.id);
+    rooms.delete(
+        room.id
+    );
 
     player.room = null;
+
+    player.playerIndex =
+        null;
 
     console.log(
         `Room ${room.id} closed`
@@ -371,10 +923,15 @@ function leaveGame(ws) {
 // START SERVER
 // ========================================
 
-server.listen(PORT, () => {
+server.listen(
+    PORT,
+    () => {
 
-    console.log(
-        `QuickPlay backend running on port ${PORT}`
-    );
+        console.log(
+            `QuickPlay backend running on port ${PORT}`
+        );
 
-});
+    }
+);
+   
+

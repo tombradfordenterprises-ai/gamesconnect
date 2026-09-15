@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,9 +6,8 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <title>QuickPlay</title>
@@ -21,331 +19,183 @@ content="width=device-width, initial-scale=1.0"
 }
 
 body {
-
     margin: 0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: Arial, Helvetica, sans-serif;
     background: #111827;
-
     color: white;
 }
 
 header {
-
     padding: 25px;
-
     text-align: center;
-
     background: #1f2937;
-
-    border-bottom:
-        1px solid #374151;
+    border-bottom: 1px solid #374151;
 }
 
 .logo {
-
     font-size: 32px;
-
     font-weight: bold;
 }
 
 .tagline {
-
     margin-top: 8px;
-
     color: #9ca3af;
 }
 
 .container {
-
-    width: min(
-        1000px,
-        94%
-    );
-
+    width: min(1000px, 94%);
     margin: auto;
 }
 
 .ad {
-
     min-height: 90px;
-
-    margin:
-        20px 0;
-
+    margin: 20px 0;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background: #1f2937;
-
-    border:
-        1px dashed #4b5563;
-
+    border: 1px dashed #4b5563;
     color: #6b7280;
 }
 
 .screen {
-
     display: none;
 }
 
 .screen.active {
-
     display: block;
 }
 
 h1 {
-
     text-align: center;
-
-    margin:
-        35px 0 25px;
+    margin: 35px 0 25px;
 }
 
 .game-grid {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(
-            3,
-            1fr
-        );
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
 .game-card {
-
     background: #1f2937;
-
-    border:
-        1px solid #374151;
-
+    border: 1px solid #374151;
     border-radius: 15px;
-
     padding: 30px 20px;
-
     text-align: center;
-
     cursor: pointer;
-
-    transition:
-        transform 0.2s,
-        border-color 0.2s;
+    transition: transform 0.2s, border-color 0.2s;
 }
 
 .game-card:hover {
-
-    transform:
-        translateY(-4px);
-
-    border-color:
-        #3b82f6;
+    transform: translateY(-4px);
+    border-color: #3b82f6;
 }
 
 .game-icon {
-
     font-size: 55px;
 }
 
 .game-name {
-
     margin-top: 15px;
-
     font-size: 22px;
-
     font-weight: bold;
 }
 
 .game-description {
-
     margin-top: 8px;
-
     color: #9ca3af;
 }
 
 .play-button {
-
     margin-top: 20px;
-
     width: 100%;
-
     padding: 13px;
-
     border: none;
-
     border-radius: 8px;
-
     background: #2563eb;
-
     color: white;
-
     font-weight: bold;
-
     font-size: 16px;
-
     cursor: pointer;
 }
 
 .play-button:hover {
-
-    background:
-        #1d4ed8;
+    background: #1d4ed8;
 }
 
 .connection {
-
     position: fixed;
-
     top: 10px;
-
     right: 10px;
-
-    padding:
-        7px 12px;
-
+    padding: 7px 12px;
     border-radius: 20px;
-
     font-size: 12px;
-
     background: #7f1d1d;
-
     z-index: 100;
 }
 
 .connection.connected {
-
-    background:
-        #166534;
+    background: #166534;
 }
 
 .queue-box {
-
     max-width: 500px;
-
-    margin:
-        60px auto;
-
+    margin: 60px auto;
     text-align: center;
-
     background: #1f2937;
-
     padding: 40px;
-
     border-radius: 15px;
 }
 
 .spinner {
-
     width: 50px;
-
     height: 50px;
-
-    margin:
-        25px auto;
-
-    border:
-        5px solid #374151;
-
-    border-top-color:
-        #3b82f6;
-
+    margin: 25px auto;
+    border: 5px solid #374151;
+    border-top-color: #3b82f6;
     border-radius: 50%;
-
-    animation:
-        spin 1s linear infinite;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-
     to {
-        transform:
-            rotate(360deg);
+        transform: rotate(360deg);
     }
-
 }
 
 .cancel-button {
-
-    padding:
-        12px 25px;
-
+    padding: 12px 25px;
     border: none;
-
     border-radius: 8px;
-
     background: #374151;
-
     color: white;
-
     cursor: pointer;
 }
 
 .match-box {
-
     max-width: 600px;
-
-    margin:
-        60px auto;
-
+    margin: 60px auto;
     padding: 40px;
-
     text-align: center;
-
     background: #1f2937;
-
     border-radius: 15px;
 }
 
 .match-icon {
-
     font-size: 70px;
 }
 
 .player-name {
-
-    margin:
-        15px 0;
-
+    margin: 15px 0;
     font-size: 25px;
-
     font-weight: bold;
 }
 
 .vs {
-
-    margin:
-        15px;
-
+    margin: 15px;
     color: #9ca3af;
-
     font-size: 20px;
-}
-
-.back-button {
-
-    margin-top: 30px;
-
-    padding:
-        12px 25px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #374151;
-
-    color: white;
-
-    cursor: pointer;
 }
 
 /* ========================================
@@ -353,214 +203,121 @@ h1 {
 ======================================== */
 
 .tictactoe-box {
-
     max-width: 500px;
-
-    margin:
-        30px auto 50px;
-
+    margin: 30px auto 50px;
     padding: 25px;
-
     text-align: center;
-
     background: #1f2937;
-
     border-radius: 15px;
-
 }
 
 .tictactoe-info {
-
     color: #d1d5db;
-
     margin-bottom: 10px;
-
 }
 
 .symbol-display {
-
     font-size: 24px;
-
     font-weight: bold;
-
     margin: 15px 0;
-
 }
 
 .turn-display {
-
     min-height: 24px;
-
     color: #9ca3af;
-
     margin-bottom: 20px;
-
 }
 
 .board {
-
-    width: min(
-        90vw,
-        360px
-    );
-
-    height: min(
-        90vw,
-        360px
-    );
-
+    width: min(90vw, 360px);
+    height: min(90vw, 360px);
     margin: 0 auto;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-
 }
 
 .cell {
-
     border: none;
-
     border-radius: 10px;
-
     background: #374151;
-
     color: white;
-
-    font-size: clamp(
-        45px,
-        15vw,
-        80px
-    );
-
+    font-size: clamp(45px, 15vw, 80px);
     font-weight: bold;
-
     cursor: pointer;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    transition:
-        background 0.15s,
-        transform 0.1s;
-
+    transition: background 0.15s, transform 0.1s;
 }
 
 .cell:hover {
-
     background: #4b5563;
-
 }
 
 .cell:active {
-
     transform: scale(0.96);
-
 }
 
 .cell:disabled {
-
     cursor: default;
-
     opacity: 1;
-
 }
 
 .cell.winning {
-
     background: #166534;
-
 }
 
 .game-result {
-
     min-height: 40px;
-
     margin-top: 20px;
-
     font-size: 22px;
-
     font-weight: bold;
-
 }
 
 .game-buttons {
-
     margin-top: 20px;
-
     display: flex;
-
     gap: 10px;
-
     justify-content: center;
-
     flex-wrap: wrap;
-
 }
 
 .game-button {
-
-    padding:
-        12px 20px;
-
+    padding: 12px 20px;
     border: none;
-
     border-radius: 8px;
-
     background: #2563eb;
-
     color: white;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
 
 .game-button:hover {
-
     background: #1d4ed8;
-
 }
 
 .game-button.secondary {
-
     background: #374151;
-
 }
 
 .game-button:disabled {
-
     opacity: 0.5;
-
     cursor: default;
-
 }
 
 @media (max-width: 700px) {
 
     .game-grid {
-
         grid-template-columns: 1fr;
-
     }
 
     .logo {
-
         font-size: 26px;
-
     }
 
     .tictactoe-box {
-
         padding: 18px;
-
     }
 
 }
@@ -571,6 +328,10 @@ h1 {
 
 <body>
 
+<!-- ========================================
+     CONNECTION STATUS
+======================================== -->
+
 <div
     id="connectionStatus"
     class="connection"
@@ -578,315 +339,354 @@ h1 {
     Connecting...
 </div>
 
+
+<!-- ========================================
+     HEADER
+======================================== -->
+
 <header>
 
-```
-<div class="logo">
-    🎮 QuickPlay
-</div>
+    <div class="logo">
+        🎮 QuickPlay
+    </div>
 
-<div class="tagline">
-    Play simple games against random players
-</div>
-```
+    <div class="tagline">
+        Play simple games against random players
+    </div>
 
 </header>
 
+
 <div class="container">
 
-```
-<div class="ad">
-    ADVERTISEMENT
-</div>
+    <!-- ========================================
+         TOP AD
+    ======================================== -->
 
-<!-- ========================= -->
-<!-- HOME -->
-<!-- ========================= -->
-
-<section
-    id="homeScreen"
-    class="screen active"
->
-
-    <h1>
-        Choose a Game
-    </h1>
-
-    <div class="game-grid">
-
-        <div
-            class="game-card"
-            onclick="findMatch('checkers')"
-        >
-
-            <div class="game-icon">
-                ♟️
-            </div>
-
-            <div class="game-name">
-                Checkers
-            </div>
-
-            <div class="game-description">
-                Classic 1v1 checkers
-            </div>
-
-            <button class="play-button">
-                FIND OPPONENT
-            </button>
-
-        </div>
-
-        <div
-            class="game-card"
-            onclick="findMatch('tictactoe')"
-        >
-
-            <div class="game-icon">
-                ❌⭕
-            </div>
-
-            <div class="game-name">
-                Tic-Tac-Toe
-            </div>
-
-            <div class="game-description">
-                Quick classic battles
-            </div>
-
-            <button class="play-button">
-                FIND OPPONENT
-            </button>
-
-        </div>
-
-        <div
-            class="game-card"
-            onclick="findMatch('battleship')"
-        >
-
-            <div class="game-icon">
-                🚢
-            </div>
-
-            <div class="game-name">
-                Battleship
-            </div>
-
-            <div class="game-description">
-                Sink your opponent
-            </div>
-
-            <button class="play-button">
-                FIND OPPONENT
-            </button>
-
-        </div>
-
+    <div class="ad">
+        ADVERTISEMENT
     </div>
 
-</section>
 
-<!-- ========================= -->
-<!-- SEARCH -->
-<!-- ========================= -->
+    <!-- ========================================
+         HOME
+    ======================================== -->
 
-<section
-    id="queueScreen"
-    class="screen"
->
-
-    <div class="queue-box">
-
-        <h1 id="queueTitle">
-            Finding Opponent
-        </h1>
-
-        <div class="spinner"></div>
-
-        <p>
-            Searching for another player...
-        </p>
-
-        <button
-            class="cancel-button"
-            onclick="cancelSearch()"
-        >
-            CANCEL
-        </button>
-
-    </div>
-
-</section>
-
-<!-- ========================= -->
-<!-- MATCH -->
-<!-- ========================= -->
-
-<section
-    id="matchScreen"
-    class="screen"
->
-
-    <div class="match-box">
-
-        <div class="match-icon">
-            🎉
-        </div>
+    <section
+        id="homeScreen"
+        class="screen active"
+    >
 
         <h1>
-            MATCH FOUND!
+            Choose a Game
         </h1>
 
-        <div
-            id="yourName"
-            class="player-name"
-        >
-            You
-        </div>
+        <div class="game-grid">
 
-        <div class="vs">
-            VS
-        </div>
+            <!-- CHECKERS -->
 
-        <div
-            id="opponentName"
-            class="player-name"
-        >
-            Opponent
-        </div>
-
-        <div id="matchGame">
-            Game
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ========================= -->
-<!-- TIC-TAC-TOE -->
-<!-- ========================= -->
-
-<section
-    id="tictactoeScreen"
-    class="screen"
->
-
-    <div class="tictactoe-box">
-
-        <h1>
-            ❌ Tic-Tac-Toe ⭕
-        </h1>
-
-        <div
-            id="ticOpponent"
-            class="tictactoe-info"
-        >
-            Opponent: —
-        </div>
-
-        <div
-            id="symbolDisplay"
-            class="symbol-display"
-        >
-            You are: —
-        </div>
-
-        <div
-            id="turnDisplay"
-            class="turn-display"
-        >
-            Waiting for game...
-        </div>
-
-        <div
-            id="ticBoard"
-            class="board"
-        >
-
-            <button
-                class="cell"
-                onclick="makeMove(0)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(1)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(2)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(3)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(4)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(5)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(6)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(7)"
-            ></button>
-
-            <button
-                class="cell"
-                onclick="makeMove(8)"
-            ></button>
-
-        </div>
-
-        <div
-            id="gameResult"
-            class="game-result"
-        ></div>
-
-        <div class="game-buttons">
-
-            <button
-                id="rematchButton"
-                class="game-button"
-                onclick="requestRematch()"
-                style="display:none;"
+            <div
+                class="game-card"
+                onclick="findMatch('checkers')"
             >
-                PLAY AGAIN
-            </button>
+
+                <div class="game-icon">
+                    ♟️
+                </div>
+
+                <div class="game-name">
+                    Checkers
+                </div>
+
+                <div class="game-description">
+                    Classic 1v1 checkers
+                </div>
+
+                <button
+                    class="play-button"
+                >
+                    FIND OPPONENT
+                </button>
+
+            </div>
+
+
+            <!-- TIC-TAC-TOE -->
+
+            <div
+                class="game-card"
+                onclick="findMatch('tictactoe')"
+            >
+
+                <div class="game-icon">
+                    ❌⭕
+                </div>
+
+                <div class="game-name">
+                    Tic-Tac-Toe
+                </div>
+
+                <div class="game-description">
+                    Quick classic battles
+                </div>
+
+                <button
+                    class="play-button"
+                >
+                    FIND OPPONENT
+                </button>
+
+            </div>
+
+
+            <!-- BATTLESHIP -->
+
+            <div
+                class="game-card"
+                onclick="findMatch('battleship')"
+            >
+
+                <div class="game-icon">
+                    🚢
+                </div>
+
+                <div class="game-name">
+                    Battleship
+                </div>
+
+                <div class="game-description">
+                    Sink your opponent
+                </div>
+
+                <button
+                    class="play-button"
+                >
+                    FIND OPPONENT
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         SEARCH SCREEN
+    ======================================== -->
+
+    <section
+        id="queueScreen"
+        class="screen"
+    >
+
+        <div class="queue-box">
+
+            <h1 id="queueTitle">
+                Finding Opponent
+            </h1>
+
+            <div class="spinner"></div>
+
+            <p>
+                Searching for another player...
+            </p>
 
             <button
-                class="game-button secondary"
-                onclick="leaveGame()"
+                class="cancel-button"
+                onclick="cancelSearch()"
             >
-                LEAVE GAME
+                CANCEL
             </button>
 
         </div>
 
+    </section>
+
+
+    <!-- ========================================
+         MATCH FOUND SCREEN
+    ======================================== -->
+
+    <section
+        id="matchScreen"
+        class="screen"
+    >
+
+        <div class="match-box">
+
+            <div class="match-icon">
+                🎉
+            </div>
+
+            <h1>
+                MATCH FOUND!
+            </h1>
+
+            <div
+                id="yourName"
+                class="player-name"
+            >
+                You
+            </div>
+
+            <div class="vs">
+                VS
+            </div>
+
+            <div
+                id="opponentName"
+                class="player-name"
+            >
+                Opponent
+            </div>
+
+            <div id="matchGame">
+                Game
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         TIC-TAC-TOE SCREEN
+    ======================================== -->
+
+    <section
+        id="tictactoeScreen"
+        class="screen"
+    >
+
+        <div class="tictactoe-box">
+
+            <h1>
+                ❌ Tic-Tac-Toe ⭕
+            </h1>
+
+            <div
+                id="ticOpponent"
+                class="tictactoe-info"
+            >
+                Opponent: —
+            </div>
+
+            <div
+                id="symbolDisplay"
+                class="symbol-display"
+            >
+                You are: —
+            </div>
+
+            <div
+                id="turnDisplay"
+                class="turn-display"
+            >
+                Waiting for game...
+            </div>
+
+
+            <!-- BOARD -->
+
+            <div
+                id="ticBoard"
+                class="board"
+            >
+
+                <button
+                    class="cell"
+                    onclick="makeMove(0)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(1)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(2)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(3)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(4)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(5)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(6)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(7)"
+                ></button>
+
+                <button
+                    class="cell"
+                    onclick="makeMove(8)"
+                ></button>
+
+            </div>
+
+
+            <!-- GAME RESULT -->
+
+            <div
+                id="gameResult"
+                class="game-result"
+            ></div>
+
+
+            <!-- GAME BUTTONS -->
+
+            <div class="game-buttons">
+
+                <button
+                    id="rematchButton"
+                    class="game-button"
+                    onclick="requestRematch()"
+                    style="display:none;"
+                >
+                    PLAY AGAIN
+                </button>
+
+                <button
+                    class="game-button secondary"
+                    onclick="leaveGame()"
+                >
+                    LEAVE GAME
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         BOTTOM AD
+    ======================================== -->
+
+    <div class="ad">
+        ADVERTISEMENT
     </div>
 
-</section>
-
-<div class="ad">
-    ADVERTISEMENT
 </div>
-```
 
-</div>
 
 <script>
 
@@ -898,6 +698,13 @@ BACKEND URL
 
 const BACKEND_URL =
     "https://gamesconnect-1.onrender.com";
+
+
+/*
+========================================
+GLOBAL VARIABLES
+========================================
+*/
 
 let socket = null;
 
@@ -916,7 +723,7 @@ let gameFinished = false;
 
 /*
 ========================================
-CONNECT
+CONNECT TO SERVER
 ========================================
 */
 
@@ -943,6 +750,7 @@ function connectToServer() {
             websocketURL
         );
 
+
     socket.onopen = () => {
 
         connected = true;
@@ -954,6 +762,7 @@ function connectToServer() {
         );
 
     };
+
 
     socket.onclose = event => {
 
@@ -968,6 +777,7 @@ function connectToServer() {
 
     };
 
+
     socket.onerror = error => {
 
         console.error(
@@ -976,6 +786,7 @@ function connectToServer() {
         );
 
     };
+
 
     socket.onmessage =
         event => {
@@ -1043,7 +854,7 @@ function updateConnectionStatus() {
 
 /*
 ========================================
-SERVER MESSAGES
+HANDLE SERVER MESSAGES
 ========================================
 */
 
@@ -1053,6 +864,13 @@ function handleMessage(message) {
         "Server:",
         message
     );
+
+
+    /*
+    ========================================
+    CONNECTED
+    ========================================
+    */
 
     if (
         message.type ===
@@ -1066,6 +884,13 @@ function handleMessage(message) {
 
     }
 
+
+    /*
+    ========================================
+    SEARCHING
+    ========================================
+    */
+
     if (
         message.type ===
         "searching"
@@ -1076,6 +901,13 @@ function handleMessage(message) {
         );
 
     }
+
+
+    /*
+    ========================================
+    MATCH FOUND
+    ========================================
+    */
 
     if (
         message.type ===
@@ -1099,6 +931,13 @@ function handleMessage(message) {
             formatGameName(
                 message.game
             );
+
+
+        /*
+        ----------------------------------------
+        TIC-TAC-TOE MATCH
+        ----------------------------------------
+        */
 
         if (
             message.game ===
@@ -1124,7 +963,8 @@ function handleMessage(message) {
 
             document.getElementById(
                 "gameResult"
-            ).textContent = "";
+            ).textContent =
+                "";
 
             document.getElementById(
                 "rematchButton"
@@ -1145,6 +985,13 @@ function handleMessage(message) {
 
     }
 
+
+    /*
+    ========================================
+    TIC-TAC-TOE START
+    ========================================
+    */
+
     if (
         message.type ===
         "tictactoe_start"
@@ -1156,7 +1003,18 @@ function handleMessage(message) {
         myPlayerIndex =
             message.playerIndex;
 
+
+        /*
+        IMPORTANT:
+        Set currentTurn BEFORE calling
+        updateBoard().
+        */
+
+        currentTurn =
+            message.currentTurn;
+
         gameFinished = false;
+
 
         document.getElementById(
             "symbolDisplay"
@@ -1164,29 +1022,38 @@ function handleMessage(message) {
             "You are: " +
             mySymbol;
 
+
         document.getElementById(
             "gameResult"
-        ).textContent = "";
+        ).textContent =
+            "";
+
 
         document.getElementById(
             "rematchButton"
         ).style.display =
             "none";
 
+
         updateBoard(
             message.board
         );
 
-        currentTurn =
-            message.currentTurn;
-
         updateTurnDisplay();
+
 
         showScreen(
             "tictactoeScreen"
         );
 
     }
+
+
+    /*
+    ========================================
+    TIC-TAC-TOE UPDATE
+    ========================================
+    */
 
     if (
         message.type ===
@@ -1196,6 +1063,9 @@ function handleMessage(message) {
         currentTurn =
             message.currentTurn;
 
+        myPlayerIndex =
+            message.playerIndex;
+
         updateBoard(
             message.board
         );
@@ -1203,6 +1073,13 @@ function handleMessage(message) {
         updateTurnDisplay();
 
     }
+
+
+    /*
+    ========================================
+    TIC-TAC-TOE RESULT
+    ========================================
+    */
 
     if (
         message.type ===
@@ -1221,6 +1098,13 @@ function handleMessage(message) {
 
     }
 
+
+    /*
+    ========================================
+    INVALID MOVE
+    ========================================
+    */
+
     if (
         message.type ===
         "invalid_move"
@@ -1231,6 +1115,13 @@ function handleMessage(message) {
         );
 
     }
+
+
+    /*
+    ========================================
+    REMATCH WAITING
+    ========================================
+    */
 
     if (
         message.type ===
@@ -1244,9 +1135,17 @@ function handleMessage(message) {
 
         document.getElementById(
             "rematchButton"
-        ).disabled = true;
+        ).disabled =
+            true;
 
     }
+
+
+    /*
+    ========================================
+    OPPONENT LEFT
+    ========================================
+    */
 
     if (
         message.type ===
@@ -1267,6 +1166,13 @@ function handleMessage(message) {
 
     }
 
+
+    /*
+    ========================================
+    SEARCH CANCELLED
+    ========================================
+    */
+
     if (
         message.type ===
         "search_cancelled"
@@ -1285,19 +1191,88 @@ function handleMessage(message) {
 
 /*
 ========================================
-MAKE MOVE
+FIND MATCH
+========================================
+*/
+
+function findMatch(game) {
+
+    if (!connected) {
+
+        alert(
+            "You are not connected to the game server yet."
+        );
+
+        return;
+
+    }
+
+    currentGame =
+        game;
+
+
+    document.getElementById(
+        "queueTitle"
+    ).textContent =
+        "Finding " +
+        formatGameName(game) +
+        " Opponent";
+
+
+    showScreen(
+        "queueScreen"
+    );
+
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "find_match",
+
+            game:
+                game
+
+        })
+    );
+
+}
+
+
+/*
+========================================
+MAKE TIC-TAC-TOE MOVE
 ========================================
 */
 
 function makeMove(position) {
 
-    if (!socket || !connected) {
+    if (
+        !socket ||
+        !connected
+    ) {
+
         return;
+
     }
 
-    if (gameFinished) {
+
+    if (
+        currentGame !==
+        "tictactoe"
+    ) {
+
         return;
+
     }
+
+
+    if (gameFinished) {
+
+        return;
+
+    }
+
 
     if (
         currentTurn !==
@@ -1305,7 +1280,15 @@ function makeMove(position) {
     ) {
 
         return;
+
     }
+
+
+    console.log(
+        "Sending move:",
+        position
+    );
+
 
     socket.send(
         JSON.stringify({
@@ -1335,11 +1318,13 @@ function updateBoard(board) {
             ".cell"
         );
 
+
     cells.forEach(
         (cell, index) => {
 
             cell.textContent =
                 board[index];
+
 
             cell.disabled =
                 board[index] !== "" ||
@@ -1366,11 +1351,13 @@ function updateTurnDisplay() {
             "turnDisplay"
         );
 
+
     if (gameFinished) {
 
         return;
 
     }
+
 
     if (
         currentTurn ===
@@ -1403,6 +1390,7 @@ function showGameResult(message) {
             "gameResult"
         );
 
+
     if (
         message.result ===
         "win"
@@ -1426,20 +1414,24 @@ function showGameResult(message) {
 
     }
 
+
     document.getElementById(
         "turnDisplay"
     ).textContent =
         "";
+
 
     document.getElementById(
         "rematchButton"
     ).style.display =
         "inline-block";
 
+
     document.getElementById(
         "rematchButton"
     ).disabled =
         false;
+
 
     highlightWinningCells(
         message.winningLine
@@ -1450,18 +1442,17 @@ function showGameResult(message) {
 
 /*
 ========================================
-HIGHLIGHT WINNING LINE
+HIGHLIGHT WINNING CELLS
 ========================================
 */
 
-function highlightWinningCells(
-    line
-) {
+function highlightWinningCells(line) {
 
     const cells =
         document.querySelectorAll(
             ".cell"
         );
+
 
     cells.forEach(
         cell => {
@@ -1473,9 +1464,13 @@ function highlightWinningCells(
         }
     );
 
+
     if (!line) {
+
         return;
+
     }
+
 
     line.forEach(
         index => {
@@ -1498,116 +1493,33 @@ REQUEST REMATCH
 
 function requestRematch() {
 
-    if (!socket || !connected) {
+    if (
+        !socket ||
+        !connected
+    ) {
+
         return;
+
     }
+
 
     document.getElementById(
         "rematchButton"
-    ).disabled = true;
+    ).disabled =
+        true;
+
 
     document.getElementById(
         "gameResult"
     ).textContent =
         "Waiting for your opponent...";
 
+
     socket.send(
         JSON.stringify({
 
             type:
                 "tictactoe_rematch"
-
-        })
-    );
-
-}
-
-
-/*
-========================================
-RESET TIC-TAC-TOE
-========================================
-*/
-
-function resetTicTacToe() {
-
-    currentTurn = null;
-
-    mySymbol = null;
-
-    myPlayerIndex = null;
-
-    gameFinished = false;
-
-    document.querySelectorAll(
-        ".cell"
-    ).forEach(
-        cell => {
-
-            cell.textContent = "";
-
-            cell.disabled = false;
-
-            cell.classList.remove(
-                "winning"
-            );
-
-        }
-    );
-
-    document.getElementById(
-        "gameResult"
-    ).textContent = "";
-
-    document.getElementById(
-        "turnDisplay"
-    ).textContent =
-        "Waiting for game...";
-
-    document.getElementById(
-        "rematchButton"
-    ).style.display =
-        "none";
-
-}
-    /*
-========================================
-FIND MATCH
-========================================
-*/
-
-function findMatch(game) {
-
-    if (!connected) {
-
-        alert(
-            "You are not connected to the game server yet."
-        );
-
-        return;
-    }
-
-    currentGame = game;
-
-    document.getElementById(
-        "queueTitle"
-    ).textContent =
-        "Finding " +
-        formatGameName(game) +
-        " Opponent";
-
-    showScreen(
-        "queueScreen"
-    );
-
-    socket.send(
-        JSON.stringify({
-
-            type:
-                "find_match",
-
-            game:
-                game
 
         })
     );
@@ -1636,7 +1548,10 @@ function cancelSearch() {
 
     }
 
-    currentGame = null;
+
+    currentGame =
+        null;
+
 
     showScreen(
         "homeScreen"
@@ -1666,13 +1581,77 @@ function leaveGame() {
 
     }
 
+
     resetTicTacToe();
 
-    currentGame = null;
+
+    currentGame =
+        null;
+
 
     showScreen(
         "homeScreen"
     );
+
+}
+
+
+/*
+========================================
+RESET TIC-TAC-TOE
+========================================
+*/
+
+function resetTicTacToe() {
+
+    currentTurn =
+        null;
+
+    mySymbol =
+        null;
+
+    myPlayerIndex =
+        null;
+
+    gameFinished =
+        false;
+
+
+    document.querySelectorAll(
+        ".cell"
+    ).forEach(
+        cell => {
+
+            cell.textContent =
+                "";
+
+            cell.disabled =
+                false;
+
+            cell.classList.remove(
+                "winning"
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "gameResult"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "turnDisplay"
+    ).textContent =
+        "Waiting for game...";
+
+
+    document.getElementById(
+        "rematchButton"
+    ).style.display =
+        "none";
 
 }
 
@@ -1698,6 +1677,7 @@ function showScreen(id) {
 
             }
         );
+
 
     document
         .getElementById(id)
@@ -1725,6 +1705,7 @@ function formatGameName(game) {
 
     }
 
+
     if (
         game ===
         "checkers"
@@ -1734,6 +1715,7 @@ function formatGameName(game) {
 
     }
 
+
     if (
         game ===
         "battleship"
@@ -1742,6 +1724,7 @@ function formatGameName(game) {
         return "Battleship";
 
     }
+
 
     return game;
 

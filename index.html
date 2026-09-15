@@ -2497,148 +2497,188 @@ function handleCheckersSquareClick(
 
 function renderCheckersBoard() {
 
-    const boardElement =
-        document
-            .getElementById(
-                "checkersBoard"
-            );
+'''
+const boardElement =
+    document.getElementById(
+        "checkersBoard"
+    );
 
-    boardElement.innerHTML = "";
+if (!boardElement) {
+    console.error(
+        "Checkers board element not found."
+    );
+    return;
+}
+
+boardElement.innerHTML = "";
+
+if (
+    !checkersBoard ||
+    !Array.isArray(checkersBoard) ||
+    checkersBoard.length !== 8
+) {
+
+    console.error(
+        "Invalid Checkers board received:",
+        checkersBoard
+    );
+
+    return;
+}
+
+for (
+    let row = 0;
+    row < 8;
+    row++
+) {
 
     for (
-        let row = 0;
-        row < 8;
-        row++
+        let col = 0;
+        col < 8;
+        col++
     ) {
 
-        for (
-            let col = 0;
-            col < 8;
-            col++
+        const square =
+            document.createElement(
+                "button"
+            );
+
+        square.type = "button";
+
+        square.className =
+            "checker-square " +
+            (
+                (row + col) % 2 === 0
+                    ? "checker-light"
+                    : "checker-dark"
+            );
+
+        square.onclick =
+            function () {
+
+                handleCheckersSquareClick(
+                    row,
+                    col
+                );
+
+            };
+
+        // =========================
+        // SELECTED SQUARE
+        // =========================
+
+        if (
+            checkersSelected &&
+            checkersSelected.row === row &&
+            checkersSelected.col === col
         ) {
 
-            const square =
-                document.createElement(
-                    "button"
-                );
-
-            square.className =
-                "checker-square " +
-                (
-                    (row + col) % 2 === 0
-                        ? "checker-light"
-                        : "checker-dark"
-                );
-
-            square.onclick =
-                () =>
-                    handleCheckersSquareClick(
-                        row,
-                        col
-                    );
-
-            // Selected square
-            if (
-                checkersSelected &&
-                checkersSelected.row ===
-                    row &&
-                checkersSelected.col ===
-                    col
-            ) {
-
-                square.classList.add(
-                    "selected-square"
-                );
-
-            }
-
-            // Legal destination
-            const legalMove =
-                checkersLegalMoves.find(
-                    move =>
-                        move.row === row &&
-                        move.col === col
-                );
-
-            if (legalMove) {
-
-                square.classList.add(
-                    "legal-square"
-                );
-
-                if (
-                    legalMove.capture
-                ) {
-
-                    square.classList.add(
-                        "capture-square"
-                    );
-
-                }
-
-            }
-
-            const piece =
-                checkersBoard &&
-                checkersBoard[row]
-                    ? checkersBoard[row][col]
-                    : null;
-
-            if (piece) {
-
-                const pieceElement =
-                    document.createElement(
-                        "div"
-                    );
-
-                pieceElement.classList.add(
-                    "checker-piece"
-                );
-
-                if (
-                    piece === "r" ||
-                    piece === "R"
-                ) {
-
-                    pieceElement.classList.add(
-                        "piece-red"
-                    );
-
-                } else {
-
-                    pieceElement.classList.add(
-                        "piece-black"
-                    );
-
-                }
-
-                if (
-                    isCheckersKing(
-                        piece
-                    )
-                ) {
-
-                    pieceElement.classList.add(
-                        "piece-king"
-                    );
-
-                }
-
-                square.appendChild(
-                    pieceElement
-                );
-
-            }
-
-            boardElement.appendChild(
-                square
+            square.classList.add(
+                "selected-square"
             );
 
         }
 
+        // =========================
+        // LEGAL MOVE
+        // =========================
+
+        const legalMove =
+            checkersLegalMoves.find(
+                move =>
+                    move.row === row &&
+                    move.col === col
+            );
+
+        if (legalMove) {
+
+            square.classList.add(
+                "legal-square"
+            );
+
+            if (
+                legalMove.capture
+            ) {
+
+                square.classList.add(
+                    "capture-square"
+                );
+
+            }
+
+        }
+
+        // =========================
+        // PIECE
+        // =========================
+
+        const piece =
+            checkersBoard[row][col];
+
+        if (piece) {
+
+            const pieceElement =
+                document.createElement(
+                    "div"
+                );
+
+            pieceElement.className =
+                "checker-piece";
+
+            if (
+                piece === "r" ||
+                piece === "R"
+            ) {
+
+                pieceElement.classList.add(
+                    "piece-red"
+                );
+
+            }
+
+            if (
+                piece === "b" ||
+                piece === "B"
+            ) {
+
+                pieceElement.classList.add(
+                    "piece-black"
+                );
+
+            }
+
+            if (
+                piece === "R" ||
+                piece === "B"
+            ) {
+
+                pieceElement.classList.add(
+                    "piece-king"
+                );
+
+            }
+
+            square.appendChild(
+                pieceElement
+            );
+
+        }
+
+        boardElement.appendChild(
+            square
+        );
+
     }
 
 }
+
+console.log(
+    "Checkers board rendered."
+);
+```
+
+}
+
 
 
 /* ========================================

@@ -131,17 +131,16 @@ function createRoom(player1, player2, game) {
         ],
 
         // Tic-Tac-Toe data
-        board: [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
+       board: [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+],
 
         currentTurn: 0,
 

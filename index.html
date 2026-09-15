@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 
+```html
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-```
 <meta charset="UTF-8">
 
 <meta
@@ -16,773 +16,800 @@
 
 <style>
 
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body {
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
 
-        margin: 0;
+body {
 
-        min-height: 100vh;
+    min-height: 100vh;
 
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-        background:
-            linear-gradient(
-                135deg,
-                #111827,
-                #1f2937
-            );
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1f2937
+        );
 
-        color: white;
+    color: white;
 
-        display: flex;
+    display: flex;
 
-        justify-content: center;
+    justify-content: center;
 
-        align-items: center;
+    align-items: center;
+}
 
-    }
+.screen {
 
-    .screen {
+    width: 100%;
 
-        width: 100%;
+    max-width: 900px;
 
-        max-width: 900px;
+    padding: 25px;
 
-        padding: 25px;
+    text-align: center;
+}
 
-        text-align: center;
+.hidden {
+    display: none !important;
+}
 
-    }
+h1 {
 
-    .hidden {
-        display: none !important;
-    }
+    font-size: 42px;
 
-    h1 {
+    margin-top: 0;
 
-        font-size: 42px;
+    margin-bottom: 10px;
+}
 
-        margin-bottom: 10px;
+h2 {
+    margin-top: 10px;
+}
 
-    }
+p {
+    color: #cbd5e1;
+}
 
-    h2 {
 
-        margin-top: 10px;
+/* =================================
+   HOME
+================================= */
 
-    }
+.games {
 
-    p {
-        color: #cbd5e1;
-    }
+    display: grid;
 
-    /* =================================
-       HOME
-    ================================= */
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
 
-    .games {
+    gap: 20px;
 
-        display: grid;
+    margin-top: 30px;
+}
 
-        grid-template-columns:
-            repeat(
-                auto-fit,
-                minmax(220px, 1fr)
-            );
+.game-card {
 
-        gap: 20px;
+    background: #1e293b;
 
-        margin-top: 30px;
+    border:
+        1px solid
+        #334155;
 
-    }
+    border-radius: 18px;
 
-    .game-card {
+    padding: 30px 20px;
 
-        background: #1e293b;
+    cursor: pointer;
 
-        border:
-            1px solid
-            #334155;
+    transition:
+        transform .2s,
+        background .2s;
+}
 
-        border-radius: 18px;
+.game-card:hover {
 
-        padding: 30px 20px;
+    transform:
+        translateY(-5px);
 
-        cursor: pointer;
+    background:
+        #263449;
+}
 
-        transition:
-            transform .2s,
-            background .2s;
+.game-icon {
 
-    }
+    font-size: 60px;
 
-    .game-card:hover {
+    margin-bottom: 15px;
+}
 
+.game-card h2 {
+
+    margin:
+        0 0 8px;
+}
+
+.game-card p {
+    margin: 0;
+}
+
+
+/* =================================
+   BUTTONS
+================================= */
+
+button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding:
+        12px 20px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    background:
+        #3b82f6;
+
+    color: white;
+
+    transition:
+        background .2s,
+        transform .1s;
+}
+
+button:hover {
+    background: #2563eb;
+}
+
+button:active {
+    transform:
+        scale(.97);
+}
+
+.secondary {
+    background: #475569;
+}
+
+.secondary:hover {
+    background: #334155;
+}
+
+.danger {
+    background: #dc2626;
+}
+
+.danger:hover {
+    background: #b91c1c;
+}
+
+
+/* =================================
+   QUEUE
+================================= */
+
+.queue-box {
+
+    background:
+        #1e293b;
+
+    border:
+        1px solid
+        #334155;
+
+    border-radius:
+        18px;
+
+    padding:
+        40px;
+
+    margin-top:
+        30px;
+}
+
+.spinner {
+
+    width:
+        50px;
+
+    height:
+        50px;
+
+    border:
+        5px solid
+        #334155;
+
+    border-top-color:
+        #3b82f6;
+
+    border-radius:
+        50%;
+
+    animation:
+        spin 1s linear infinite;
+
+    margin:
+        20px auto;
+}
+
+@keyframes spin {
+
+    to {
         transform:
-            translateY(-5px);
-
-        background:
-            #263449;
-
+            rotate(360deg);
     }
 
-    .game-icon {
+}
 
-        font-size: 60px;
 
-        margin-bottom: 15px;
+/* =================================
+   GAME HEADER
+================================= */
 
-    }
+.game-header {
 
-    .game-card h2 {
+    display:
+        flex;
 
-        margin: 0 0 8px;
+    justify-content:
+        space-between;
 
-    }
+    align-items:
+        center;
 
-    .game-card p {
+    gap:
+        15px;
 
-        margin: 0;
+    margin-bottom:
+        20px;
 
-    }
+    flex-wrap:
+        wrap;
+}
 
-    /* =================================
-       BUTTONS
-    ================================= */
+.player-info {
 
-    button {
+    background:
+        #1e293b;
 
-        border: none;
+    padding:
+        12px 18px;
 
-        border-radius: 10px;
+    border-radius:
+        12px;
 
-        padding: 12px 20px;
+    border:
+        1px solid
+        #334155;
+}
 
-        font-size: 16px;
+.turn-indicator {
 
-        cursor: pointer;
+    padding:
+        12px 20px;
 
-        background: #3b82f6;
+    border-radius:
+        12px;
 
-        color: white;
+    background:
+        #334155;
 
-        transition:
-            background .2s,
-            transform .1s;
+    font-weight:
+        bold;
+}
 
-    }
 
-    button:hover {
-        background: #2563eb;
-    }
+/* =================================
+   TIC TAC TOE
+================================= */
 
-    button:active {
-        transform: scale(.97);
-    }
+.ttt-board {
 
-    .secondary {
+    width:
+        min(90vw, 420px);
 
-        background:
-            #475569;
+    height:
+        min(90vw, 420px);
 
-    }
+    margin:
+        25px auto;
 
-    .secondary:hover {
+    display:
+        grid;
 
-        background:
-            #334155;
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    }
+    gap:
+        8px;
+}
 
-    .danger {
+.ttt-cell {
 
-        background:
-            #dc2626;
+    background:
+        #334155;
 
-    }
+    border:
+        2px solid
+        #475569;
 
-    .danger:hover {
+    border-radius:
+        12px;
 
-        background:
-            #b91c1c;
+    font-size:
+        clamp(
+            40px,
+            12vw,
+            80px
+        );
 
-    }
+    font-weight:
+        bold;
 
-    /* =================================
-       QUEUE
-    ================================= */
+    display:
+        flex;
 
-    .queue-box {
+    align-items:
+        center;
 
-        background:
-            #1e293b;
+    justify-content:
+        center;
 
-        border:
-            1px solid
-            #334155;
+    cursor:
+        pointer;
+}
 
-        border-radius: 18px;
+.ttt-cell:hover:not(:disabled) {
 
-        padding: 40px;
+    background:
+        #475569;
+}
 
-        margin-top: 30px;
+.ttt-cell:disabled {
+    cursor:
+        default;
+}
 
-    }
 
-    .spinner {
-
-        width: 50px;
-
-        height: 50px;
-
-        border:
-            5px solid
-            #334155;
-
-        border-top-color:
-            #3b82f6;
-
-        border-radius: 50%;
-
-        animation:
-            spin 1s linear infinite;
-
-        margin:
-            20px auto;
-
-    }
-
-    @keyframes spin {
-
-        to {
-            transform:
-                rotate(360deg);
-        }
-
-    }
-
-    /* =================================
-       GAME HEADER
-    ================================= */
-
-    .game-header {
-
-        display: flex;
-
-        justify-content:
-            space-between;
-
-        align-items: center;
-
-        gap: 15px;
-
-        margin-bottom: 20px;
-
-        flex-wrap: wrap;
-
-    }
-
-    .player-info {
-
-        background:
-            #1e293b;
-
-        padding:
-            12px 18px;
-
-        border-radius:
-            12px;
-
-        border:
-            1px solid
-            #334155;
-
-    }
-
-    .turn-indicator {
-
-        padding:
-            12px 20px;
-
-        border-radius:
-            12px;
-
-        background:
-            #334155;
-
-        font-weight:
-            bold;
-
-    }
-
-    /* =================================
-       TIC TAC TOE
-    ================================= */
-
-    .ttt-board {
-
-        width:
-            min(90vw, 420px);
-
-        height:
-            min(90vw, 420px);
-
-        margin:
-            25px auto;
-
-        display:
-            grid;
-
-        grid-template-columns:
-            repeat(3, 1fr);
-
-        gap: 8px;
-
-    }
-
-    .ttt-cell {
-
-        background:
-            #334155;
-
-        border:
-            2px solid
-            #475569;
-
-        border-radius:
-            12px;
-
-        font-size:
-            clamp(
-                40px,
-                12vw,
-                80px
-            );
-
-        font-weight:
-            bold;
-
-        display:
-            flex;
-
-        align-items:
-            center;
-
-        justify-content:
-            center;
-
-        cursor:
-            pointer;
-
-    }
-
-    .ttt-cell:hover:not(:disabled) {
-
-        background:
-            #475569;
-
-    }
-
-    .ttt-cell:disabled {
-
-        cursor:
-            default;
-
-    }
-
-  /* =================================
-CHECKERS
+/* =================================
+   CHECKERS
 ================================= */
 
 .checkers-wrapper {
 
-```
-width: 100%;
+    width:
+        100%;
 
-display: flex;
+    display:
+        flex;
 
-justify-content: center;
+    justify-content:
+        center;
 
-align-items: center;
+    align-items:
+        center;
 
-padding: 10px;
-```
-
+    padding:
+        10px;
 }
 
 .checkers-board {
 
-```
-width: 560px;
+    width:
+        560px;
 
-height: 560px;
+    height:
+        560px;
 
-max-width: 92vw;
+    max-width:
+        92vw;
 
-max-height: 92vw;
+    max-height:
+        92vw;
 
-display: grid;
+    display:
+        grid;
 
-grid-template-columns:
-    repeat(8, 1fr);
+    grid-template-columns:
+        repeat(8, 1fr);
 
-grid-template-rows:
-    repeat(8, 1fr);
+    grid-template-rows:
+        repeat(8, 1fr);
 
-border: 6px solid #111827;
+    border:
+        6px solid
+        #111827;
 
-border-radius: 8px;
+    border-radius:
+        8px;
 
-overflow: hidden;
+    overflow:
+        hidden;
 
-box-shadow:
-    0 15px 40px
-    rgba(0, 0, 0, .4);
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, .4);
 
-flex-shrink: 0;
-```
-
+    flex-shrink:
+        0;
 }
 
 .checker-square {
 
-```
-width: 100%;
+    width:
+        100%;
 
-height: 100%;
+    height:
+        100%;
 
-min-width: 0;
+    min-width:
+        0;
 
-min-height: 0;
+    min-height:
+        0;
 
-border: none;
+    border:
+        none;
 
-border-radius: 0;
+    border-radius:
+        0;
 
-padding: 0;
+    padding:
+        0;
 
-margin: 0;
+    margin:
+        0;
 
-display: flex;
+    display:
+        flex;
 
-align-items: center;
+    align-items:
+        center;
 
-justify-content: center;
+    justify-content:
+        center;
 
-position: relative;
+    position:
+        relative;
 
-cursor: pointer;
+    cursor:
+        pointer;
 
-appearance: none;
+    appearance:
+        none;
 
--webkit-appearance: none;
-```
-
+    -webkit-appearance:
+        none;
 }
 
 .checker-light {
-
-```
-background: #e5d3b3;
-```
-
+    background:
+        #e5d3b3;
 }
 
 .checker-dark {
-
-```
-background: #7a4f32;
-```
-
+    background:
+        #7a4f32;
 }
 
 .checker-square:hover {
-
-```
-filter: brightness(1.08);
-```
-
+    filter:
+        brightness(1.08);
 }
 
 .checker-piece {
 
-```
-width: 72%;
+    width:
+        72%;
 
-height: 72%;
+    height:
+        72%;
 
-border-radius: 50%;
+    border-radius:
+        50%;
 
-display: flex;
+    display:
+        flex;
 
-align-items: center;
+    align-items:
+        center;
 
-justify-content: center;
+    justify-content:
+        center;
 
-font-size: 30px;
+    font-size:
+        30px;
 
-font-weight: bold;
+    font-weight:
+        bold;
 
-border: 3px solid rgba(0, 0, 0, .35);
+    border:
+        3px solid
+        rgba(0, 0, 0, .35);
 
-box-shadow:
-    0 5px 8px
-    rgba(0, 0, 0, .35);
+    box-shadow:
+        0 5px 8px
+        rgba(0, 0, 0, .35);
 
-pointer-events: none;
-```
+    pointer-events:
+        none;
 
+    position:
+        relative;
+
+    z-index:
+        2;
 }
 
 .piece-red {
-
-```
-background: #dc2626;
-```
-
+    background:
+        #dc2626;
 }
 
 .piece-black {
-
-```
-background: #111827;
-```
-
+    background:
+        #111827;
 }
 
 .piece-king::after {
 
-```
-content: "♛";
+    content:
+        "♛";
 
-color: #facc15;
+    color:
+        #facc15;
 
-text-shadow:
-    0 1px 2px #000;
-```
-
+    text-shadow:
+        0 1px 2px #000;
 }
 
 .selected-square {
 
-```
-box-shadow:
-    inset 0 0 0 5px #22c55e;
-```
-
+    box-shadow:
+        inset 0 0 0 5px
+        #22c55e;
 }
 
 .legal-square::after {
 
-```
-content: "";
+    content:
+        "";
 
-position: absolute;
+    position:
+        absolute;
 
-width: 24%;
+    width:
+        24%;
 
-height: 24%;
+    height:
+        24%;
 
-border-radius: 50%;
+    border-radius:
+        50%;
 
-background:
-    rgba(
-        34,
-        197,
-        94,
-        .85
-    );
+    background:
+        rgba(
+            34,
+            197,
+            94,
+            .85
+        );
 
-pointer-events: none;
-```
-
+    pointer-events:
+        none;
 }
 
 .capture-square::after {
 
-```
-background:
-    rgba(
-        250,
-        204,
-        21,
-        .95
-    );
-```
-
+    background:
+        rgba(
+            250,
+            204,
+            21,
+            .95
+        );
 }
 
 .checkers-info {
 
-```
-margin:
-    15px auto;
+    margin:
+        15px auto;
 
-max-width:
-    560px;
+    max-width:
+        560px;
 
-display:
-    flex;
+    display:
+        flex;
 
-justify-content:
-    center;
+    justify-content:
+        center;
 
-gap:
-    10px;
+    gap:
+        10px;
 
-flex-wrap:
-    wrap;
-
-
+    flex-wrap:
+        wrap;
 }
 
 .color-label {
 
-```
-padding:
-    10px 16px;
+    padding:
+        10px 16px;
 
-border-radius:
-    10px;
+    border-radius:
+        10px;
 
-background:
-    #1e293b;
+    background:
+        #1e293b;
 
-border:
-    1px solid
-    #334155;
-
-
+    border:
+        1px solid
+        #334155;
 }
+
+
+/* =================================
+   GAME OVER
+================================= */
+
+.result-box {
+
+    background:
+        #1e293b;
+
+    border:
+        1px solid
+        #334155;
+
+    border-radius:
+        18px;
+
+    padding:
+        25px;
+
+    margin:
+        20px auto;
+
+    max-width:
+        500px;
+}
+
+.result-title {
+
+    font-size:
+        32px;
+
+    font-weight:
+        bold;
+
+    margin-bottom:
+        15px;
+}
+
+.game-buttons {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    flex-wrap:
+        wrap;
+
+    margin-top:
+        20px;
+}
+
+
+/* =================================
+   MOBILE
+================================= */
 
 @media (max-width: 600px) {
 
-```
-.checkers-board {
-
-    width: 92vw;
-
-    height: 92vw;
-
-    border-width: 4px;
-
-}
-
-.checker-piece {
-
-    font-size: 20px;
-
-    border-width: 2px;
-
-}
-
-
-}
-
-
-    /* =================================
-       GAME OVER
-    ================================= */
-
-    .result-box {
-
-        background:
-            #1e293b;
-
-        border:
-            1px solid
-            #334155;
-
-        border-radius:
-            18px;
-
+    .screen {
         padding:
-            25px;
-
-        margin:
-            20px auto;
-
-        max-width:
-            500px;
-
-    }
-
-    .result-title {
-
-        font-size:
-            32px;
-
-        font-weight:
-            bold;
-
-        margin-bottom:
             15px;
-
     }
 
-    .game-buttons {
+    h1 {
+        font-size:
+            34px;
+    }
 
-        display:
-            flex;
+    .queue-box {
+        padding:
+            25px 15px;
+    }
 
+    .game-header {
         justify-content:
             center;
+    }
 
-        gap:
-            10px;
+    .player-info {
+        font-size:
+            14px;
+    }
 
-        flex-wrap:
-            wrap;
+    .checkers-board {
 
-        margin-top:
+        width:
+            92vw;
+
+        height:
+            92vw;
+
+        border-width:
+            4px;
+    }
+
+    .checker-piece {
+
+        font-size:
             20px;
 
+        border-width:
+            2px;
     }
 
-    /* =================================
-       MOBILE
-    ================================= */
+}
 
-    @media (
-        max-width: 600px
-    ) {
 
-        .screen {
-            padding: 15px;
-        }
+/* =================================
+   VERY SMALL PHONES
+================================= */
 
-        h1 {
-            font-size: 34px;
-        }
+@media (max-width: 400px) {
 
-        .queue-box {
-            padding: 25px 15px;
-        }
-
-        .game-header {
-            justify-content: center;
-        }
-
-        .player-info {
-            font-size: 14px;
-        }
-
+    .checkers-info {
+        gap:
+            5px;
     }
+
+    .color-label {
+
+        padding:
+            7px 9px;
+
+        font-size:
+            13px;
+    }
+
+}
 
 </style>
-```
 
 </head>
 
+
 <body>
 
-```
+
 <!-- =================================
      HOME SCREEN
 ================================= -->
@@ -792,7 +819,9 @@ border:
     class="screen"
 >
 
-    <h1>QuickPlay</h1>
+    <h1>
+        QuickPlay
+    </h1>
 
     <p>
         Play games against random opponents.
@@ -809,13 +838,16 @@ border:
                 ♟️
             </div>
 
-            <h2>Checkers</h2>
+            <h2>
+                Checkers
+            </h2>
 
             <p>
                 Classic 1v1 checkers
             </p>
 
         </div>
+
 
         <div
             class="game-card"
@@ -826,13 +858,16 @@ border:
                 ❌⭕
             </div>
 
-            <h2>Tic-Tac-Toe</h2>
+            <h2>
+                Tic-Tac-Toe
+            </h2>
 
             <p>
                 Quick 1v1 matches
             </p>
 
         </div>
+
 
         <div
             class="game-card"
@@ -843,7 +878,9 @@ border:
                 🚢
             </div>
 
-            <h2>Battleship</h2>
+            <h2>
+                Battleship
+            </h2>
 
             <p>
                 Coming soon
@@ -865,13 +902,13 @@ border:
     class="screen hidden"
 >
 
-    <h1>Finding Opponent</h1>
+    <h1>
+        Finding Opponent
+    </h1>
 
     <div class="queue-box">
 
-        <div
-            id="queueGame"
-        >
+        <div id="queueGame">
             Searching...
         </div>
 
@@ -927,12 +964,17 @@ border:
 
     </div>
 
-    <h2>Tic-Tac-Toe</h2>
+
+    <h2>
+        Tic-Tac-Toe
+    </h2>
+
 
     <div
         id="tttBoard"
         class="ttt-board"
     ></div>
+
 
     <div
         id="tttResult"
@@ -966,6 +1008,7 @@ border:
         </div>
 
     </div>
+
 
     <div
         class="game-buttons"
@@ -1018,11 +1061,13 @@ border:
 
     </div>
 
-    <h2>Checkers</h2>
 
-    <div
-        class="checkers-info"
-    >
+    <h2>
+        Checkers
+    </h2>
+
+
+    <div class="checkers-info">
 
         <div
             class="color-label"
@@ -1031,23 +1076,18 @@ border:
             Your pieces
         </div>
 
-        <div
-            class="color-label"
-        >
+        <div class="color-label">
             Green = move
         </div>
 
-        <div
-            class="color-label"
-        >
+        <div class="color-label">
             Gold = capture
         </div>
 
     </div>
 
-    <div
-        class="checkers-wrapper"
-    >
+
+    <div class="checkers-wrapper">
 
         <div
             id="checkersBoard"
@@ -1056,11 +1096,11 @@ border:
 
     </div>
 
-    <p
-        id="checkersMessage"
-    >
+
+    <p id="checkersMessage">
         Select one of your pieces.
     </p>
+
 
     <div
         id="checkersResult"
@@ -1095,6 +1135,7 @@ border:
 
     </div>
 
+
     <div
         class="game-buttons"
         id="checkersLeaveButton"
@@ -1110,9 +1151,10 @@ border:
     </div>
 
 </div>
-```
+
 
 <script>
+
 
 /* ========================================
    BACKEND
@@ -1183,6 +1225,7 @@ function connectSocket() {
     socket =
         new WebSocket(url);
 
+
     socket.onopen = () => {
 
         console.log(
@@ -1190,6 +1233,7 @@ function connectSocket() {
         );
 
     };
+
 
     socket.onmessage = event => {
 
@@ -1202,7 +1246,12 @@ function connectSocket() {
                     event.data
                 );
 
-        } catch {
+        } catch (error) {
+
+            console.error(
+                "Invalid server message:",
+                event.data
+            );
 
             return;
 
@@ -1211,6 +1260,17 @@ function connectSocket() {
         handleServerMessage(message);
 
     };
+
+
+    socket.onerror = error => {
+
+        console.error(
+            "WebSocket error:",
+            error
+        );
+
+    };
+
 
     socket.onclose = () => {
 
@@ -1234,7 +1294,9 @@ function handleServerMessage(message) {
         message
     );
 
+
     switch (message.type) {
+
 
         case "connected":
 
@@ -1266,7 +1328,7 @@ function handleServerMessage(message) {
             break;
 
 
-        /* ================================
+        /* =================================
            TIC TAC TOE
         ================================= */
 
@@ -1325,7 +1387,8 @@ function handleServerMessage(message) {
             tttBoard =
                 message.board;
 
-            currentTurn = null;
+            currentTurn =
+                null;
 
             updateTicTacToeBoard();
 
@@ -1357,11 +1420,16 @@ function handleServerMessage(message) {
             break;
 
 
-        /* ================================
+        /* =================================
            CHECKERS
         ================================= */
 
         case "checkers_update":
+
+            console.log(
+                "CHECKERS UPDATE RECEIVED:",
+                message
+            );
 
             currentTurn =
                 message.currentTurn;
@@ -1401,6 +1469,11 @@ function handleServerMessage(message) {
 
         case "checkers_result":
 
+            console.log(
+                "CHECKERS RESULT:",
+                message
+            );
+
             gameFinished =
                 true;
 
@@ -1413,7 +1486,8 @@ function handleServerMessage(message) {
             checkersLegalMoves =
                 [];
 
-            currentTurn = null;
+            currentTurn =
+                null;
 
             renderCheckersBoard();
 
@@ -1481,41 +1555,49 @@ function findMatch(game) {
 
     showQueue(game);
 
+
     if (
         !socket ||
-        socket.readyState !== WebSocket.OPEN
+        socket.readyState !==
+            WebSocket.OPEN
     ) {
 
         connectSocket();
 
+
         const waitForConnection =
-            setInterval(() => {
+            setInterval(
+                () => {
 
-                if (
-                    socket &&
-                    socket.readyState ===
-                    WebSocket.OPEN
-                ) {
+                    if (
+                        socket &&
+                        socket.readyState ===
+                            WebSocket.OPEN
+                    ) {
 
-                    clearInterval(
-                        waitForConnection
-                    );
+                        clearInterval(
+                            waitForConnection
+                        );
 
-                    socket.send(
-                        JSON.stringify({
 
-                            type:
-                                "find_match",
+                        socket.send(
+                            JSON.stringify({
 
-                            game:
-                                game
+                                type:
+                                    "find_match",
 
-                        })
-                    );
+                                game:
+                                    game
 
-                }
+                            })
+                        );
 
-            }, 100);
+                    }
+
+                },
+                100
+            );
+
 
     } else {
 
@@ -1572,6 +1654,7 @@ function showGame() {
 
     hideAllScreens();
 
+
     if (
         currentGame ===
         "tictactoe"
@@ -1593,6 +1676,7 @@ function showGame() {
             opponentName;
 
     }
+
 
     if (
         currentGame ===
@@ -1658,22 +1742,31 @@ function formatGameName(game) {
         game ===
         "tictactoe"
     ) {
+
         return "Tic-Tac-Toe";
+
     }
+
 
     if (
         game ===
         "checkers"
     ) {
+
         return "Checkers";
+
     }
+
 
     if (
         game ===
         "battleship"
     ) {
+
         return "Battleship";
+
     }
+
 
     return game;
 
@@ -1689,7 +1782,7 @@ function cancelSearch() {
     if (
         socket &&
         socket.readyState ===
-        WebSocket.OPEN
+            WebSocket.OPEN
     ) {
 
         socket.send(
@@ -1750,6 +1843,7 @@ function updateTicTacToeHeader() {
         "You: " +
         mySymbol;
 
+
     document
         .getElementById(
             "tttOpponent"
@@ -1757,11 +1851,13 @@ function updateTicTacToeHeader() {
         .textContent =
         opponentName;
 
+
     const turnElement =
         document
             .getElementById(
                 "tttTurn"
             );
+
 
     if (
         currentTurn ===
@@ -1793,7 +1889,9 @@ function createTicTacToeBoard() {
                 "tttBoard"
             );
 
-    boardElement.innerHTML = "";
+    boardElement.innerHTML =
+        "";
+
 
     for (
         let i = 0;
@@ -1806,15 +1904,19 @@ function createTicTacToeBoard() {
                 "button"
             );
 
+
         button.className =
             "ttt-cell";
+
 
         button.dataset.position =
             i;
 
+
         button.onclick =
             () =>
                 makeTicTacToeMove(i);
+
 
         boardElement.appendChild(
             button
@@ -1831,24 +1933,24 @@ function createTicTacToeBoard() {
 
 function updateTicTacToeBoard() {
 
+    const boardElement =
+        document.getElementById(
+            "tttBoard"
+        );
+
+
     if (
-        !document
-            .getElementById(
-                "tttBoard"
-            )
-            .children.length
+        !boardElement.children.length
     ) {
 
         createTicTacToeBoard();
 
     }
 
+
     const cells =
-        document
-            .getElementById(
-                "tttBoard"
-            )
-            .children;
+        boardElement.children;
+
 
     for (
         let i = 0;
@@ -1858,6 +1960,7 @@ function updateTicTacToeBoard() {
 
         cells[i].textContent =
             tttBoard[i] || "";
+
 
         cells[i].disabled =
             gameFinished ||
@@ -1881,8 +1984,22 @@ function makeTicTacToeMove(position) {
         currentTurn !==
             myPlayerIndex
     ) {
+
         return;
+
     }
+
+
+    if (
+        !socket ||
+        socket.readyState !==
+            WebSocket.OPEN
+    ) {
+
+        return;
+
+    }
+
 
     socket.send(
         JSON.stringify({
@@ -1903,9 +2020,7 @@ function makeTicTacToeMove(position) {
    TTT RESULT
 ======================================== */
 
-function showTicTacToeResult(
-    result
-) {
+function showTicTacToeResult(result) {
 
     const resultBox =
         document
@@ -1913,11 +2028,13 @@ function showTicTacToeResult(
                 "tttResult"
             );
 
+
     const title =
         document
             .getElementById(
                 "tttResultTitle"
             );
+
 
     const message =
         document
@@ -1925,9 +2042,11 @@ function showTicTacToeResult(
                 "tttResultMessage"
             );
 
+
     resultBox.classList.remove(
         "hidden"
     );
+
 
     if (
         result ===
@@ -1940,7 +2059,10 @@ function showTicTacToeResult(
         message.textContent =
             "Congratulations!";
 
-    } else if (
+    }
+
+
+    else if (
         result ===
         "loss"
     ) {
@@ -1951,7 +2073,10 @@ function showTicTacToeResult(
         message.textContent =
             "Better luck next time!";
 
-    } else {
+    }
+
+
+    else {
 
         title.textContent =
             "Draw";
@@ -1969,6 +2094,17 @@ function showTicTacToeResult(
 ======================================== */
 
 function requestTicTacToeRematch() {
+
+    if (
+        !socket ||
+        socket.readyState !==
+            WebSocket.OPEN
+    ) {
+
+        return;
+
+    }
+
 
     socket.send(
         JSON.stringify({
@@ -1994,6 +2130,7 @@ function updateCheckersHeader() {
                 "checkersTurn"
             );
 
+
     if (
         currentTurn ===
         myPlayerIndex
@@ -2016,9 +2153,7 @@ function updateCheckersHeader() {
    CHECKERS PIECE OWNER
 ======================================== */
 
-function checkersPieceOwner(
-    piece
-) {
+function checkersPieceOwner(piece) {
 
     if (
         piece === "r" ||
@@ -2029,6 +2164,7 @@ function checkersPieceOwner(
 
     }
 
+
     if (
         piece === "b" ||
         piece === "B"
@@ -2037,6 +2173,7 @@ function checkersPieceOwner(
         return 1;
 
     }
+
 
     return null;
 
@@ -2061,9 +2198,7 @@ function isCheckersKing(piece) {
    CHECKERS DIRECTIONS
 ======================================== */
 
-function getCheckersDirections(
-    piece
-) {
+function getCheckersDirections(piece) {
 
     if (
         isCheckersKing(piece)
@@ -2080,10 +2215,12 @@ function getCheckersDirections(
 
     }
 
+
     const owner =
         checkersPieceOwner(
             piece
         );
+
 
     if (
         owner === 0
@@ -2097,6 +2234,7 @@ function getCheckersDirections(
         ];
 
     }
+
 
     return [
 
@@ -2120,16 +2258,22 @@ function getClientCheckersMoves(
     const piece =
         checkersBoard[row][col];
 
+
     if (!piece) {
+
         return [];
+
     }
 
+
     const moves = [];
+
 
     const directions =
         getCheckersDirections(
             piece
         );
+
 
     for (
         const [
@@ -2145,11 +2289,13 @@ function getClientCheckersMoves(
         const normalCol =
             col + dc;
 
+
         const jumpRow =
             row + dr * 2;
 
         const jumpCol =
             col + dc * 2;
+
 
         if (
             normalRow >= 0 &&
@@ -2178,6 +2324,7 @@ function getClientCheckersMoves(
 
         }
 
+
         if (
             jumpRow >= 0 &&
             jumpRow < 8 &&
@@ -2195,12 +2342,14 @@ function getClientCheckersMoves(
                     normalCol
                 ];
 
+
             const landing =
                 checkersBoard[
                     jumpRow
                 ][
                     jumpCol
                 ];
+
 
             if (
                 middle &&
@@ -2232,6 +2381,7 @@ function getClientCheckersMoves(
 
     }
 
+
     return moves;
 
 }
@@ -2258,6 +2408,7 @@ function playerHasCapture() {
             const piece =
                 checkersBoard[row][col];
 
+
             if (
                 piece &&
                 checkersPieceOwner(
@@ -2271,6 +2422,7 @@ function playerHasCapture() {
                         row,
                         col
                     );
+
 
                 if (
                     moves.some(
@@ -2288,6 +2440,7 @@ function playerHasCapture() {
         }
 
     }
+
 
     return false;
 
@@ -2313,12 +2466,17 @@ function selectCheckersPiece(
 
     }
 
+
     const piece =
         checkersBoard[row][col];
 
+
     if (!piece) {
+
         return;
+
     }
+
 
     if (
         checkersPieceOwner(
@@ -2330,6 +2488,7 @@ function selectCheckersPiece(
         return;
 
     }
+
 
     if (
         checkersMustContinue &&
@@ -2352,19 +2511,25 @@ function selectCheckersPiece(
 
     }
 
+
     const allMoves =
         getClientCheckersMoves(
             row,
             col
         );
 
+
     const mustCapture =
         playerHasCapture();
+
 
     let legalMoves =
         allMoves;
 
-    if (mustCapture) {
+
+    if (
+        mustCapture
+    ) {
 
         legalMoves =
             allMoves.filter(
@@ -2374,8 +2539,10 @@ function selectCheckersPiece(
 
     }
 
+
     if (
-        legalMoves.length === 0
+        legalMoves.length ===
+        0
     ) {
 
         document
@@ -2389,6 +2556,7 @@ function selectCheckersPiece(
 
     }
 
+
     checkersSelected = {
 
         row:
@@ -2399,8 +2567,10 @@ function selectCheckersPiece(
 
     };
 
+
     checkersLegalMoves =
         legalMoves;
+
 
     document
         .getElementById(
@@ -2410,6 +2580,7 @@ function selectCheckersPiece(
         mustCapture
             ? "Capture required!"
             : "Choose a destination.";
+
 
     renderCheckersBoard();
 
@@ -2435,7 +2606,7 @@ function handleCheckersSquareClick(
 
     }
 
-    // Destination selected
+
     if (
         checkersSelected
     ) {
@@ -2447,7 +2618,19 @@ function handleCheckersSquareClick(
                     item.col === col
             );
 
+
         if (move) {
+
+            if (
+                !socket ||
+                socket.readyState !==
+                    WebSocket.OPEN
+            ) {
+
+                return;
+
+            }
+
 
             socket.send(
                 JSON.stringify({
@@ -2470,6 +2653,7 @@ function handleCheckersSquareClick(
                 })
             );
 
+
             checkersSelected =
                 null;
 
@@ -2482,7 +2666,7 @@ function handleCheckersSquareClick(
 
     }
 
-    // Otherwise select piece
+
     selectCheckersPiece(
         row,
         col
@@ -2495,37 +2679,88 @@ function handleCheckersSquareClick(
    RENDER CHECKERS BOARD
 ======================================== */
 
-
 function renderCheckersBoard() {
 
-    const boardElement = document.getElementById("checkersBoard");
+    const boardElement =
+        document.getElementById(
+            "checkersBoard"
+        );
+
 
     if (!boardElement) {
-        console.error("CHECKERS: #checkersBoard not found");
+
+        console.error(
+            "CHECKERS: #checkersBoard not found"
+        );
+
         return;
+
     }
 
-    console.log("CHECKERS: rendering board");
-    console.log("CHECKERS BOARD DATA:", checkersBoard);
 
-    // Completely reset the board
-    boardElement.innerHTML = "";
+    console.log(
+        "CHECKERS: rendering board"
+    );
 
-    // Force the board itself to be a visible 8x8 grid
-    boardElement.style.display = "grid";
-    boardElement.style.gridTemplateColumns = "repeat(8, 1fr)";
-    boardElement.style.gridTemplateRows = "repeat(8, 1fr)";
-    boardElement.style.width = "560px";
-    boardElement.style.height = "560px";
-    boardElement.style.maxWidth = "92vw";
-    boardElement.style.maxHeight = "92vw";
-    boardElement.style.margin = "20px auto";
-    boardElement.style.border = "6px solid #000";
-    boardElement.style.boxSizing = "border-box";
-    boardElement.style.overflow = "hidden";
+
+    console.log(
+        "CHECKERS BOARD DATA:",
+        checkersBoard
+    );
+
+
+    boardElement.innerHTML =
+        "";
+
+
+    boardElement.style.display =
+        "grid";
+
+
+    boardElement.style.gridTemplateColumns =
+        "repeat(8, 1fr)";
+
+
+    boardElement.style.gridTemplateRows =
+        "repeat(8, 1fr)";
+
+
+    boardElement.style.width =
+        "560px";
+
+
+    boardElement.style.height =
+        "560px";
+
+
+    boardElement.style.maxWidth =
+        "92vw";
+
+
+    boardElement.style.maxHeight =
+        "92vw";
+
+
+    boardElement.style.margin =
+        "20px auto";
+
+
+    boardElement.style.border =
+        "6px solid #000";
+
+
+    boardElement.style.boxSizing =
+        "border-box";
+
+
+    boardElement.style.overflow =
+        "hidden";
+
 
     if (
-        !Array.isArray(checkersBoard) ||
+        !Array.isArray(
+            checkersBoard
+        ) ||
         checkersBoard.length !== 8
     ) {
 
@@ -2535,12 +2770,21 @@ function renderCheckersBoard() {
         );
 
         return;
+
     }
 
-    for (let row = 0; row < 8; row++) {
+
+    for (
+        let row = 0;
+        row < 8;
+        row++
+    ) {
+
 
         if (
-            !Array.isArray(checkersBoard[row]) ||
+            !Array.isArray(
+                checkersBoard[row]
+            ) ||
             checkersBoard[row].length !== 8
         ) {
 
@@ -2551,91 +2795,209 @@ function renderCheckersBoard() {
             );
 
             return;
+
         }
 
-        for (let col = 0; col < 8; col++) {
 
-            const square = document.createElement("div");
+        for (
+            let col = 0;
+            col < 8;
+            col++
+        ) {
 
-            // Light / dark square
-            if ((row + col) % 2 === 0) {
-                square.style.backgroundColor = "#f0d9b5";
+            const square =
+                document.createElement(
+                    "div"
+                );
+
+
+            if (
+                (row + col) % 2 === 0
+            ) {
+
+                square.style.backgroundColor =
+                    "#f0d9b5";
+
             } else {
-                square.style.backgroundColor = "#8b5a2b";
+
+                square.style.backgroundColor =
+                    "#8b5a2b";
+
             }
 
-            square.style.width = "100%";
-            square.style.height = "100%";
-            square.style.display = "flex";
-            square.style.alignItems = "center";
-            square.style.justifyContent = "center";
-            square.style.position = "relative";
-            square.style.boxSizing = "border-box";
-            square.style.cursor = "pointer";
 
-            square.onclick = function () {
-                handleCheckersSquareClick(row, col);
-            };
+            square.style.width =
+                "100%";
 
-            // Selected square
+
+            square.style.height =
+                "100%";
+
+
+            square.style.display =
+                "flex";
+
+
+            square.style.alignItems =
+                "center";
+
+
+            square.style.justifyContent =
+                "center";
+
+
+            square.style.position =
+                "relative";
+
+
+            square.style.boxSizing =
+                "border-box";
+
+
+            square.style.cursor =
+                "pointer";
+
+
+            square.onclick =
+                function () {
+
+                    handleCheckersSquareClick(
+                        row,
+                        col
+                    );
+
+                };
+
+
             if (
                 checkersSelected &&
                 checkersSelected.row === row &&
                 checkersSelected.col === col
             ) {
+
                 square.style.boxShadow =
                     "inset 0 0 0 6px #22c55e";
+
             }
 
-            // Legal destination
-            const legalMove = checkersLegalMoves.find(
-                move =>
-                    move.row === row &&
-                    move.col === col
-            );
+
+            const legalMove =
+                checkersLegalMoves.find(
+                    move =>
+                        move.row === row &&
+                        move.col === col
+                );
+
 
             if (legalMove) {
 
-                const marker = document.createElement("div");
+                const marker =
+                    document.createElement(
+                        "div"
+                    );
 
-                marker.style.position = "absolute";
-                marker.style.width = "25%";
-                marker.style.height = "25%";
-                marker.style.borderRadius = "50%";
+
+                marker.style.position =
+                    "absolute";
+
+
+                marker.style.width =
+                    "25%";
+
+
+                marker.style.height =
+                    "25%";
+
+
+                marker.style.borderRadius =
+                    "50%";
+
+
                 marker.style.backgroundColor =
                     legalMove.capture
                         ? "#facc15"
                         : "#22c55e";
 
-                marker.style.pointerEvents = "none";
 
-                square.appendChild(marker);
+                marker.style.pointerEvents =
+                    "none";
+
+
+                marker.style.zIndex =
+                    "1";
+
+
+                square.appendChild(
+                    marker
+                );
+
             }
 
-            // Piece
-            const piece = checkersBoard[row][col];
+
+            const piece =
+                checkersBoard[row][col];
+
 
             if (piece) {
 
                 const pieceElement =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                pieceElement.style.width = "72%";
-                pieceElement.style.height = "72%";
-                pieceElement.style.borderRadius = "50%";
-                pieceElement.style.display = "flex";
-                pieceElement.style.alignItems = "center";
-                pieceElement.style.justifyContent = "center";
-                pieceElement.style.position = "relative";
-                pieceElement.style.zIndex = "2";
-                pieceElement.style.boxSizing = "border-box";
+
+                pieceElement.className =
+                    "checker-piece";
+
+
+                pieceElement.style.width =
+                    "72%";
+
+
+                pieceElement.style.height =
+                    "72%";
+
+
+                pieceElement.style.borderRadius =
+                    "50%";
+
+
+                pieceElement.style.display =
+                    "flex";
+
+
+                pieceElement.style.alignItems =
+                    "center";
+
+
+                pieceElement.style.justifyContent =
+                    "center";
+
+
+                pieceElement.style.position =
+                    "relative";
+
+
+                pieceElement.style.zIndex =
+                    "2";
+
+
+                pieceElement.style.boxSizing =
+                    "border-box";
+
+
                 pieceElement.style.border =
                     "3px solid rgba(0,0,0,.4)";
+
+
                 pieceElement.style.boxShadow =
                     "0 5px 8px rgba(0,0,0,.4)";
-                pieceElement.style.pointerEvents = "none";
 
-                // Red piece
+
+                pieceElement.style.pointerEvents =
+                    "none";
+
+
                 if (
                     piece === "r" ||
                     piece === "R"
@@ -2646,7 +3008,7 @@ function renderCheckersBoard() {
 
                 }
 
-                // Black piece
+
                 if (
                     piece === "b" ||
                     piece === "B"
@@ -2657,43 +3019,60 @@ function renderCheckersBoard() {
 
                 }
 
-                // King
+
                 if (
                     piece === "R" ||
                     piece === "B"
                 ) {
 
-                    pieceElement.textContent = "♛";
-                    pieceElement.style.color = "#facc15";
-                    pieceElement.style.fontSize = "32px";
-                    pieceElement.style.fontWeight = "bold";
+                    pieceElement.textContent =
+                        "♛";
+
+
+                    pieceElement.style.color =
+                        "#facc15";
+
+
+                    pieceElement.style.fontSize =
+                        "32px";
+
+
+                    pieceElement.style.fontWeight =
+                        "bold";
 
                 }
 
-                square.appendChild(pieceElement);
+
+                square.appendChild(
+                    pieceElement
+                );
+
             }
 
-            boardElement.appendChild(square);
+
+            boardElement.appendChild(
+                square
+            );
+
         }
+
     }
+
 
     console.log(
         "CHECKERS: board rendered with",
         boardElement.children.length,
         "squares"
     );
-}
-```
 
+}
 
 
 /* ========================================
    CHECKERS RESULT
 ======================================== */
 
-function showCheckersResult(
-    result
-) {
+function showCheckersResult(result) {
 
     const resultBox =
         document
@@ -2701,11 +3080,13 @@ function showCheckersResult(
                 "checkersResult"
             );
 
+
     const title =
         document
             .getElementById(
                 "checkersResultTitle"
             );
+
 
     const message =
         document
@@ -2713,9 +3094,11 @@ function showCheckersResult(
                 "checkersResultMessage"
             );
 
+
     resultBox.classList.remove(
         "hidden"
     );
+
 
     if (
         result ===
@@ -2725,13 +3108,18 @@ function showCheckersResult(
         title.textContent =
             "You Win! 🎉";
 
+
         message.textContent =
             "You defeated your opponent.";
 
-    } else {
+    }
+
+
+    else {
 
         title.textContent =
             "You Lost";
+
 
         message.textContent =
             "Your opponent won this game.";
@@ -2746,6 +3134,17 @@ function showCheckersResult(
 ======================================== */
 
 function requestCheckersRematch() {
+
+    if (
+        !socket ||
+        socket.readyState !==
+            WebSocket.OPEN
+    ) {
+
+        return;
+
+    }
+
 
     socket.send(
         JSON.stringify({
@@ -2768,7 +3167,7 @@ function leaveGame() {
     if (
         socket &&
         socket.readyState ===
-        WebSocket.OPEN
+            WebSocket.OPEN
     ) {
 
         socket.send(
@@ -2781,6 +3180,7 @@ function leaveGame() {
         );
 
     }
+
 
     showHome();
 
@@ -2796,5 +3196,5 @@ connectSocket();
 </script>
 
 </body>
-
 </html>
+```

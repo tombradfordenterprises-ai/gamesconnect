@@ -1570,6 +1570,49 @@ function resetTicTacToe() {
         "none";
 
 }
+    /*
+========================================
+FIND MATCH
+========================================
+*/
+
+function findMatch(game) {
+
+    if (!connected) {
+
+        alert(
+            "You are not connected to the game server yet."
+        );
+
+        return;
+    }
+
+    currentGame = game;
+
+    document.getElementById(
+        "queueTitle"
+    ).textContent =
+        "Finding " +
+        formatGameName(game) +
+        " Opponent";
+
+    showScreen(
+        "queueScreen"
+    );
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "find_match",
+
+            game:
+                game
+
+        })
+    );
+
+}
 
 
 /*
